@@ -60,6 +60,15 @@ class PurchaseService {
     console.log(": ", purchases);
     return purchases;
   }
+
+  async getOne(id) {
+    const purchase = await Purchase.findOne({
+      where: { id },
+    });
+
+    console.log("one p: ", JSON.stringify(purchase, null, 2));
+    return purchase;
+  }
 }
 
 module.exports = new PurchaseService();

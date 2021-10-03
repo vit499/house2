@@ -14,7 +14,7 @@ import { register } from "../http/userApi";
 import { LOGIN_ROUTE, HOME_ROUTE } from "../utils/const";
 
 const Register = () => {
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,7 +51,7 @@ const Register = () => {
     }
   };
 
-  if (user.isAuth) {
+  if (userStore.isAuth) {
     return <Redirect to={HOME_ROUTE} />;
   }
   if (load) {

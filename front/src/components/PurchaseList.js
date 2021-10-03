@@ -1,17 +1,18 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { Row } from "react-bootstrap";
 import { Context } from "..";
 import PurchaseItem from "./PurchaseItem";
 
 const PurchaseList = observer(() => {
-  const { purchase } = useContext(Context);
+  const { purchaseStore } = useContext(Context);
 
-  console.log("p", purchase.purchases);
+  // console.log("purchase", purchaseStore.purchases);
   return (
     <>
-      {purchase.purchases &&
-        purchase.purchases.map((p) => <PurchaseItem key={p.id} p={p} />)}
+      {purchaseStore.purchases &&
+        purchaseStore.purchases.map((purchase) => (
+          <PurchaseItem key={purchase.id} purchase={purchase} />
+        ))}
     </>
   );
 });

@@ -1,91 +1,57 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Context } from "..";
 import NeedBar from "../components/NeedBar";
 import PurchaseList from "../components/PurchaseList";
 import Pagin from "../components/Pagin";
 import FreqBar from "../components/FreqBar";
-import {
-  fetchFreqs,
-  fetchNeeds,
-  fetchAllTags,
-  fetchPurchases,
-} from "../http/purchaseApi";
+import { fetchPurchases } from "../http/purchaseApi";
 import AllTagBar from "../components/AllTagBar";
 
 const Shop = observer(() => {
-  const { purchase } = useContext(Context);
-  const [load1, setLoad1] = useState(false);
-  const [load2, setLoad2] = useState(false);
-  const [load3, setLoad3] = useState(false);
-
-  useEffect(() => {
-    setLoad1(true);
-    setLoad2(true);
-    setLoad3(true);
-    console.log("shop use effect1");
-    fetchFreqs()
-      .then((data) => {
-        purchase.setFreqs(data);
-        setLoad1(false);
-      })
-      .catch((e) => {});
-    fetchNeeds()
-      .then((data) => {
-        purchase.setNeeds(data);
-        setLoad2(false);
-      })
-      .catch((e) => {});
-    fetchAllTags()
-      .then((data) => {
-        purchase.setAllTags(data);
-        setLoad3(false);
-      })
-      .catch((e) => {});
-  }, []);
+  const { purchaseStore } = useContext(Context);
 
   useEffect(() => {
     console.log("shop use effect2");
     fetchPurchases(
-      purchase.selectedFreqId !== 0 ? purchase.selectedFreqId : null,
-      purchase.selectedNeedId !== 0 ? purchase.selectedNeedId : null
-      // purchase.selectedFreqId,
-      // purchase.selectedNeedId
+      purchaseStore.selectedFreqId !== 0 ? purchaseStore.selectedFreqId : null,
+      purchaseStore.selectedNeedId !== 0 ? purchaseStore.selectedNeedId : null
     )
       .then((data) => {
         console.log("shop purchases", data.count);
-        purchase.setPurchases(data.rows);
-        purchase.setTotalCount(data.count);
+        purchaseStore.setPurchases(data.rows);
+        purchaseStore.setTotalCount(data.count);
       })
       .catch((e) => {});
-  }, [purchase.selectedNeedId, purchase.selectedFreqId, purchase]);
+  }, [
+    purchaseStore.selectedNeedId,
+    purchaseStore.selectedFreqId,
+    purchaseStore,
+  ]);
 
   // useEffect(() => {
-  //   fetchPurchases(
-  //     purchase.selectedFreq.id,
-  //     purchase.selectedNeed.id,
-  //     purchase.page,
-  //     purchase.limit
-  //   )
+  //   console.log("shop use effect0");
+  //   fetchPurchases()
   //     .then((data) => {
-  //       console.log("shop purchases", data.count);
-  //       purchase.setPurchases(data.rows);
-  //       purchase.setTotalCount(data.count);
+  //       console.log("shop purchases0", data.count);
+  //       purchaseStore.setPurchases(data.rows);
+  //       purchaseStore.setTotalCount(data.count);
   //     })
   //     .catch((e) => {});
-  // }, [purchase]);
+  // }, []);
 
-  if (load1 || load2 || load3) {
-    return <div>load</div>;
-  }
+  // if (load1 || load2 || load3) {
+  //   return <div>load</div>;
+  // }
   return (
     <Container>
       <Row className="mt-5">
-        <Col md={6}>
+        <Col md={4}>
           <PurchaseList />
           <Pagin />
         </Col>
+        <Col md={2}></Col>
         <Col md={2}>
           <AllTagBar />
         </Col>

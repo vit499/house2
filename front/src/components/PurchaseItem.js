@@ -1,35 +1,43 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { Context } from "..";
 import { PURCHASE_ROUTE } from "../utils/const";
 
-const PurchaseItem = ({ p }) => {
-  const { purchase } = useContext(Context);
+const PurchaseItem = ({ purchase }) => {
+  // const { markStore } = useContext(Context);
   const history = useHistory();
   const handle = () => {
-    history.push(PURCHASE_ROUTE + "/" + p.id);
+    history.push(PURCHASE_ROUTE + "/" + purchase.id);
   };
-  console.log("p", p);
+
+  // console.log("purchase", purchase);
+  // console.log("purchase", purchase.tags);
   return (
-    <div md={3} onClick={handle}>
-      <Card className="mb-2" style={{ cursor: "pointer" }} border={"dark"}>
+    <div onClick={handle}>
+      <Card className="mb-1" style={{ cursor: "pointer" }}>
         <Row>
           <Col>
-            <div>{p.name}</div>
+            <div className="pl-2">{purchase.name}</div>
           </Col>
           <Col>
-            <div>{p.price.toString()}</div>
+            <div className="pr-2" style={{ textAlignLast: "end" }}>
+              {purchase.price.toString()}
+            </div>
+          </Col>
+        </Row>
+        {/* <Row>
+          <Col>
+            <div>{markStore.needs[purchase.needId - 1].name} </div>
+          </Col>
+          <Col>
+            <div>{markStore.freqs[purchase.freqId - 1].name} </div>
           </Col>
         </Row>
         <Row>
           <Col>
-            <div>{purchase.needs[p.needId - 1].name} </div>
+            <div>{purchase.tags}</div>
           </Col>
-          <Col>
-            <div>{purchase.freqs[p.freqId - 1].name} </div>
-          </Col>
-        </Row>
+        </Row> */}
       </Card>
     </div>
   );

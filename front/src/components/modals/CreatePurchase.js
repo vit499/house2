@@ -6,19 +6,19 @@ import { Context } from "../..";
 import { createPurchase, fetchNeeds, fetchFreqs } from "../../http/purchaseApi";
 
 const CreatePurchase = observer(({ show, onHide }) => {
-  const { purchase } = useContext(Context);
+  const { markStore, purchaseStore } = useContext(Context);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(50);
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
     fetchFreqs()
-      .then((data) => purchase.setFreqs(data))
+      .then((data) => markStore.setFreqs(data))
       .catch((e) => {});
     fetchNeeds()
-      .then((data) => purchase.setNeeds(data))
+      .then((data) => markStore.setNeeds(data))
       .catch((e) => {});
-  }, [purchase]);
+  }, [markStore]);
   // const changeInfo = (key, value, number) => {
   //   const newInfo = tags.map((item) => {
   //     if (item.number === number) {
@@ -34,8 +34,8 @@ const CreatePurchase = observer(({ show, onHide }) => {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("price", `${price}`);
-      formData.append("freqId", purchase.selectedFreqId);
-      formData.append("needId", purchase.selectedNeedId);
+      formData.append("freqId", purchaseStore.selectedFreqId);
+      formData.append("needId", purchaseStore.selectedNeedId);
       // formData.append("tags", JSON.stringify(tags));
 
       const data = await createPurchase(formData);
@@ -79,10 +79,10 @@ const CreatePurchase = observer(({ show, onHide }) => {
               {"Выберите тип"}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {purchase.freqs &&
-                purchase.freqs.map((a) => (
+              {markStore.freqs &&
+                markStore.freqs.map((a) => (
                   <DropdownItem
-                    onClick={() => purchase.setSelectedFreq(a)}
+                    onClick={() => purchaseStore.setSelectedFreq(a)}
                     key={a.id}
                   >
                     {a.name}
@@ -95,10 +95,10 @@ const CreatePurchase = observer(({ show, onHide }) => {
               {"Выберите бренд"}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {purchase.needs &&
-                purchase.needs.map((a) => (
+              {markStore.needs &&
+                markStore.needs.map((a) => (
                   <DropdownItem
-                    onClick={() => purchase.setSelectedNeed(a)}
+                    onClick={() => purchaseStore.setSelectedNeed(a)}
                     key={a.id}
                   >
                     {a.name}

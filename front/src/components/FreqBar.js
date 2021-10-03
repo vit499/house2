@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
-import { Form, ListGroup } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Context } from "..";
 
 const FreqBar = observer(() => {
-  const { purchase } = useContext(Context);
+  const { markStore, purchaseStore } = useContext(Context);
   const [indexRadio, setIndexRadio] = useState(0);
 
   const handleChange = (e) => {
@@ -12,13 +12,13 @@ const FreqBar = observer(() => {
     const id = Number(e.target.id);
     console.log("freq id", id);
     setIndexRadio(id);
-    purchase.setSelectedFreqId(id);
+    purchaseStore.setSelectedFreqId(id);
   };
-  if (!purchase) {
+  if (!markStore) {
     console.log("no freqs no dev");
     // return <div>no freqs</div>;
   }
-  if (!purchase.freqs) {
+  if (!markStore.freqs) {
     console.log("no freqs");
     return <div>no list</div>;
   }
@@ -26,8 +26,8 @@ const FreqBar = observer(() => {
     <>
       <p>Частота</p>
       <Form>
-        {purchase.freqs &&
-          purchase.freqs.map((freq) => (
+        {markStore.freqs &&
+          markStore.freqs.map((freq) => (
             <div key={freq.id} className="mb-1">
               <Form.Check
                 type="radio"

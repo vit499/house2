@@ -6,23 +6,15 @@ import { observer } from "mobx-react-lite";
 import { useContext, useEffect, useState } from "react";
 import { Context } from ".";
 import { checkAuth } from "./http/userApi";
-import { Spinner } from "react-bootstrap";
+import Load from "./components/Load";
+import { fetchAllTags, fetchFreqs, fetchNeeds } from "./http/purchaseApi";
 
 const App = observer(() => {
-  const { user } = useContext(Context);
+  const { userStore, markStore } = useContext(Context);
   const [loading, setLoading] = useState(true);
-
-  const wrapperStyle = {
-    position: "fixed",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  };
+  const [load1, setLoad1] = useState(false);
+  const [load2, setLoad2] = useState(false);
+  const [load3, setLoad3] = useState(false);
 
   useEffect(() => {
     async function f() {
@@ -31,26 +23,45 @@ const App = observer(() => {
         const data = await checkAuth();
         if (data) {
           console.log("check auth data", data);
-          user.setData(data);
-          user.setIsAuth(true);
+          userStore.setData(data);
+          userStore.setIsAuth(true);
         }
       } catch (err) {}
       console.log("app checkAuth end", new Date().getSeconds());
       setLoading(false);
     }
     f();
-  }, [user]);
+  }, [userStore]);
 
-  console.log("app isAuth", user.isAuth);
-  if (loading) {
-    return (
-      <div style={wrapperStyle}>
-        <Spinner animation="border" variant="primary" />
-        <Spinner animation="grow" variant="success" />
-        <Spinner animation="border" variant="primary" />
-      </div>
-    );
+  useEffect(() => {
+    setLoad1(true);
+    setLoad2(true);
+    setLoad3(true);
+    console.log("shop use effect1");
+    fetchFreqs()
+      .then((data) => {
+        markStore.setFreqs(data);
+        setLoad1(false);
+      })
+      .catch((e) => {});
+    fetchNeeds()
+      .then((data) => {
+        markStore.setNeeds(data);
+        setLoad2(false);
+      })
+      .catch((e) => {});
+    fetchAllTags()
+      .then((data) => {
+        markStore.setAllTags(data);
+        setLoad3(false);
+      })
+      .catch((e) => {});
+  }, []);
+
+  if (loading || load1 || load2 || load3) {
+    return <Load />;
   }
+  console.log("app isAuth", userStore.isAuth);
 
   return (
     <BrowserRouter>

@@ -28,13 +28,13 @@ class PurchaseController {
   }
 
   async getOne(req, res, next) {
-    // console.log('get one purchase')
+    console.log("get one purchase");
     try {
       const { id } = req.params;
       if (!id) {
         return next(ApiError.badRequest("no purchase id"));
       }
-      const purchase = {};
+      const purchase = await purchaseService.getOne(id);
       return res.json(purchase);
     } catch (err) {
       return next(ApiError.badRequest(err.message));

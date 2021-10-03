@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Card,
@@ -15,7 +15,7 @@ import { login } from "../http/userApi";
 import { REGISTER_ROUTE, HOME_ROUTE } from "../utils/const";
 
 const Login = observer(() => {
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [load, setLoad] = useState(false);
@@ -49,8 +49,8 @@ const Login = observer(() => {
       setEmail("");
       setPassword("");
       if (data) {
-        user.setData(data);
-        user.setIsAuth(true);
+        userStore.setData(data);
+        userStore.setIsAuth(true);
         history.push(HOME_ROUTE);
       }
     } catch (e) {
@@ -59,7 +59,7 @@ const Login = observer(() => {
     }
   };
 
-  if (user.isAuth) {
+  if (userStore.isAuth) {
     return <Redirect to={HOME_ROUTE} />;
   }
   if (load) {

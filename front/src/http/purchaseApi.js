@@ -42,9 +42,9 @@ const createTag = async (tag) => {
 };
 
 const fetchAllTags = async () => {
-  console.log("[get] fetchAllTags");
+  // console.log("[get] fetchAllTags");
   const { data } = await $host.get("api/tag", {});
-  console.log("get tags", data);
+  // console.log("get tags", data);
   return data;
 };
 
@@ -72,7 +72,7 @@ const fetchOnePurchase = async (id) => {
   console.log("[get] fetchOnePurchase");
   try {
     const { data } = await $host.get(`api/purchase/${id}`, {});
-    console.log("one", data);
+    // console.log("one", JSON.stringify(data, null, 2));
     return data;
   } catch (err) {}
 };

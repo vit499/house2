@@ -6,11 +6,11 @@ import { authRoutes, publicRoutes } from "../routes";
 import { HOME_ROUTE } from "../utils/const";
 
 const AppRouter = observer(() => {
-  const { user } = useContext(Context);
-  // console.log("user", user);
+  const { userStore } = useContext(Context);
+  // console.log("userStore", userStore);
   return (
     <Switch>
-      {user.isAuth &&
+      {userStore.isAuth &&
         authRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} component={Component} exact />
         ))}

@@ -2,26 +2,16 @@ import { makeAutoObservable } from "mobx";
 
 export default class PurchaseStore {
   constructor() {
-    this._freqs = [];
-    this._needs = [];
     this._purchases = [];
-    this._allTags = [];
-    this._tags = [{}];
     this._selectedFreqId = 0;
     this._selectedNeedId = 0;
+
     this._page = 1;
     this._totalCount = 0;
     this._limit = 2;
     makeAutoObservable(this);
   }
 
-  setFreqs(freqs) {
-    this._freqs = freqs;
-  }
-
-  setNeeds(needs) {
-    this._needs = needs;
-  }
   setPurchases(purchases) {
     this._purchases = purchases;
   }
@@ -33,16 +23,15 @@ export default class PurchaseStore {
     this._page = 1;
     this._selectedNeedId = selectedNeedId;
   }
-  setAllTags(allTags) {
-    this._allTags = allTags;
 
-    // console.log("obj of tags", this._tags);
+  get purchases() {
+    return this._purchases;
   }
-  setTagEn(tagId, en) {
-    this._tags[tagId].en = en;
+  get selectedFreqId() {
+    return this._selectedFreqId;
   }
-  setTags(tags) {
-    this._tags = tags;
+  get selectedNeedId() {
+    return this._selectedNeedId;
   }
 
   setPage(page) {
@@ -54,29 +43,6 @@ export default class PurchaseStore {
   setLimit(limit) {
     this._limit = limit;
   }
-
-  get freqs() {
-    return this._freqs;
-  }
-  get needs() {
-    return this._needs;
-  }
-  get purchases() {
-    return this._purchases;
-  }
-  get selectedFreqId() {
-    return this._selectedFreqId;
-  }
-  get selectedNeedId() {
-    return this._selectedNeedId;
-  }
-  get allTags() {
-    return this._allTags;
-  }
-  get tags() {
-    return this._tags;
-  }
-
   get page() {
     return this._page;
   }

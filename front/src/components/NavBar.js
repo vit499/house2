@@ -7,17 +7,17 @@ import { ADMIN_ROUTE, LOGIN_ROUTE, HOME_ROUTE } from "../utils/const";
 import { BoxArrowRight } from "react-bootstrap-icons";
 
 const NavBar = observer(() => {
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   const history = useHistory();
 
   const signOut = () => {
     localStorage.removeItem("token");
-    user.setData({});
-    user.setIsAuth(false);
+    userStore.setData({});
+    userStore.setIsAuth(false);
     // history.push(LOGIN_ROUTE);
   };
 
-  console.log("nav isAuth", user.isAuth);
+  console.log("nav isAuth", userStore.isAuth);
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -26,14 +26,16 @@ const NavBar = observer(() => {
           Магазин
         </NavLink>
         <Nav className="ml-auto">
-          {user.data && (
+          {userStore.data && (
             <>
               <div className="mr-2 mt-1">
-                <h5 style={{ color: "lightGray" }}>{user.data.username}</h5>
+                <h5 style={{ color: "lightGray" }}>
+                  {userStore.data.username}
+                </h5>
               </div>
             </>
           )}
-          {user.data && user.data.role === "ADMIN" && (
+          {userStore.data && userStore.data.role === "ADMIN" && (
             <>
               <Button
                 variant="outline-light"
@@ -44,7 +46,7 @@ const NavBar = observer(() => {
               </Button>
             </>
           )}
-          {user.isAuth ? (
+          {userStore.isAuth ? (
             <>
               <div style={{ cursor: "pointer" }} onClick={() => signOut()}>
                 <BoxArrowRight
