@@ -72,7 +72,7 @@ const fetchOnePurchase = async (id) => {
   console.log("[get] fetchOnePurchase");
   try {
     const { data } = await $host.get(`api/purchase/${id}`, {});
-    // console.log("one", JSON.stringify(data, null, 2));
+    console.log("one", JSON.stringify(data, null, 2));
     return data;
   } catch (err) {}
 };

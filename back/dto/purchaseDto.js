@@ -13,7 +13,7 @@ class PurchaseDto {
     this.price = model.price;
     this.freqId = model.freqId;
     this.needId = model.needId;
-    this.tags = model.tagStr.join(" ");
+    this.tags = model.tags.split(" ");
   }
 }
 

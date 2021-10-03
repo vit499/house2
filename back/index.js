@@ -16,15 +16,17 @@ app.use("/api", router);
 
 app.use(errorHandler);
 
+const updateDb = 0;
+
 const start = async () => {
   try {
     await sequelize.authenticate();
-    // await sequelize.drop();
+    if (updateDb !== 0) await sequelize.drop();
     await sequelize.sync();
     app.listen(PORT, () => {
       console.log(`app listen on port ${PORT}`);
 
-      // fillPurchases();
+      if (updateDb !== 0) fillPurchases();
     });
   } catch (err) {
     console.log("err", err);

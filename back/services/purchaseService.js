@@ -17,9 +17,9 @@ class PurchaseService {
 
     try {
       const p = await Purchase.create(purchase);
-      const pp = new PurchaseDto(p);
+      // const pp = new PurchaseDto(p);
       // console.log("result save purchase", result);
-      return pp;
+      return p;
     } catch (e) {
       console.log("err purchase", e);
       throw ApiError.BadRequest(e);
@@ -65,7 +65,7 @@ class PurchaseService {
     const purchase = await Purchase.findOne({
       where: { id },
     });
-
+    // const purchase = new PurchaseDto(p);
     console.log("one p: ", JSON.stringify(purchase, null, 2));
     return purchase;
   }

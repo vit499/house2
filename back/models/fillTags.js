@@ -20,21 +20,22 @@ const createTags = async () => {
 
 const createNeeds = async () => {
   try {
-    await Need.create({ name: "1" });
-    await Need.create({ name: "2" });
-    await Need.create({ name: "3" });
-    await Need.create({ name: "4" });
-    await Need.create({ name: "5" });
+    await Need.create({ name: "a1" });
+    await Need.create({ name: "b2" });
+    await Need.create({ name: "c3" });
+    await Need.create({ name: "d4" });
+    await Need.create({ name: "e5" });
   } catch (e) {
     console.log("err tag", e);
   }
 };
 const createFreqs = async () => {
   try {
-    await Freq.create({ name: "день" });
+    // await Freq.create({ name: "день" });
     await Freq.create({ name: "неделя" });
     await Freq.create({ name: "месяц" });
     await Freq.create({ name: "год" });
+    await Freq.create({ name: "разово" });
   } catch (e) {
     console.log("err tag", e);
   }
