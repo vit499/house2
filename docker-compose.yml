@@ -25,7 +25,7 @@ services:
       - vit497_api_db
     networks:
       - v1-network
-      
+
   vit497_api_db:
     build: ./postgres
     container_name: vit497_api_db
@@ -38,10 +38,9 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-    command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
 
 volumes:
-  web-root:
+  pgdata_house2:
     driver: local
     driver_opts:
       type: none
