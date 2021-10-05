@@ -1,27 +1,19 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  ListGroup,
-  ListGroupItem,
-  Row,
-} from "react-bootstrap";
-
-import { useParams } from "react-router-dom";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useHistory, useParams } from "react-router-dom";
 import { Context } from "..";
 import Load from "../components/Load";
 import { fetchOnePurchase } from "../http/purchaseApi";
+import { HOME_ROUTE } from "../utils/const";
 
 const PurchasePage = observer(() => {
-  const { markStore } = useContext(Context);
+  const { markStore, purchaseStore } = useContext(Context);
   const [purchase, setPurchase] = useState(null);
   // const [purchaseNew, setPurchaseNew] = useState(null);
   const [load, setLoad] = useState(false);
   const { id } = useParams();
+  const history = useHistory();
 
   const changeName = (e) => {
     const name = e.target.value;
@@ -62,6 +54,13 @@ const PurchasePage = observer(() => {
   };
   const submit = (e) => {
     e.preventDefault();
+  };
+  const handleCancel = () => {
+    purchaseStore.setReqPurchase(false);
+    history.push({
+      pathname: HOME_ROUTE,
+      // state: { canceled: true },
+    });
   };
 
   useEffect(() => {
@@ -193,7 +192,7 @@ const PurchasePage = observer(() => {
 
             <Form.Group as={Row} className="mt-3 mb-2 mr-2">
               <div className="ml-auto">
-                <Button className="mr-3" variant="link">
+                <Button className="mr-3" variant="link" onClick={handleCancel}>
                   Отмена
                 </Button>
                 <Button className="mr-3" variant="link" type="submit">

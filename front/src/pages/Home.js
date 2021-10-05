@@ -6,24 +6,24 @@ import NeedBar from "../components/NeedBar";
 import PurchaseList from "../components/PurchaseList";
 import Pagin from "../components/Pagin";
 import FreqBar from "../components/FreqBar";
-import { fetchPurchases } from "../http/purchaseApi";
+// import { fetchPurchases } from "../http/purchaseApi";
 import AllTagBar from "../components/AllTagBar";
+import Load from "../components/Load";
 
 const Shop = observer(() => {
   const { purchaseStore } = useContext(Context);
 
   useEffect(() => {
+    if (!purchaseStore.reqPurchase) {
+      purchaseStore.setReqPurchase(true);
+      console.log("cancel");
+      return;
+    }
     console.log("shop use effect2");
-    fetchPurchases(
+    purchaseStore.fetchPurchases(
       purchaseStore.selectedFreqId !== 0 ? purchaseStore.selectedFreqId : null,
       purchaseStore.selectedNeedId !== 0 ? purchaseStore.selectedNeedId : null
-    )
-      .then((data) => {
-        console.log("shop purchases", data.count);
-        purchaseStore.setPurchases(data.rows);
-        purchaseStore.setTotalCount(data.count);
-      })
-      .catch((e) => {});
+    );
   }, [
     purchaseStore.selectedNeedId,
     purchaseStore.selectedFreqId,
@@ -41,9 +41,9 @@ const Shop = observer(() => {
   //     .catch((e) => {});
   // }, []);
 
-  // if (load1 || load2 || load3) {
-  //   return <div>load</div>;
-  // }
+  if (purchaseStore.load) {
+    return <Load />;
+  }
   return (
     <Container>
       <Row className="mt-5">

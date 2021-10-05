@@ -7,11 +7,13 @@ const PurchaseItem = ({ purchase }) => {
   // const { markStore } = useContext(Context);
   const history = useHistory();
   const handle = () => {
-    history.push(PURCHASE_ROUTE + "/" + purchase.id);
+    // history.push(PURCHASE_ROUTE + "/" + purchase.id);
+    history.push({
+      pathname: `${PURCHASE_ROUTE}/${purchase.id}`,
+      state: { referer: history.location.pathname },
+    });
   };
 
-  // console.log("purchase", purchase);
-  // console.log("purchase", purchase.tags);
   return (
     <div onClick={handle}>
       <Card className="mb-1" style={{ cursor: "pointer" }}>
@@ -25,19 +27,6 @@ const PurchaseItem = ({ purchase }) => {
             </div>
           </Col>
         </Row>
-        {/* <Row>
-          <Col>
-            <div>{markStore.needs[purchase.needId - 1].name} </div>
-          </Col>
-          <Col>
-            <div>{markStore.freqs[purchase.freqId - 1].name} </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <div>{purchase.tags}</div>
-          </Col>
-        </Row> */}
       </Card>
     </div>
   );

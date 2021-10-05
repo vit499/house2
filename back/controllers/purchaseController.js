@@ -18,27 +18,47 @@ class PurchaseController {
 
   async getAll(req, res, next) {
     console.log("get Purchase", req.query);
-    try {
-      const purchases = await purchaseService.getAll(req);
+    setTimeout(async () => {
+      try {
+        const purchases = await purchaseService.getAll(req);
+        return res.json(purchases);
+      } catch (err) {
+        return err;
+      }
+    }, 1000);
+    // try {
+    //   const purchases = await purchaseService.getAll(req);
 
-      return res.json(purchases);
-    } catch (err) {
-      return err;
-    }
+    //   return res.json(purchases);
+    // } catch (err) {
+    //   return err;
+    // }
   }
 
   async getOne(req, res, next) {
     console.log("get one purchase");
-    try {
-      const { id } = req.params;
-      if (!id) {
-        return next(ApiError.badRequest("no purchase id"));
+    setTimeout(async () => {
+      try {
+        const { id } = req.params;
+        if (!id) {
+          return next(ApiError.badRequest("no purchase id"));
+        }
+        const purchase = await purchaseService.getOne(id);
+        return res.json(purchase);
+      } catch (err) {
+        return next(ApiError.badRequest(err.message));
       }
-      const purchase = await purchaseService.getOne(id);
-      return res.json(purchase);
-    } catch (err) {
-      return next(ApiError.badRequest(err.message));
-    }
+    }, 1000);
+    // try {
+    //   const { id } = req.params;
+    //   if (!id) {
+    //     return next(ApiError.badRequest("no purchase id"));
+    //   }
+    //   const purchase = await purchaseService.getOne(id);
+    //   return res.json(purchase);
+    // } catch (err) {
+    //   return next(ApiError.badRequest(err.message));
+    // }
   }
 }
 

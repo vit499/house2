@@ -18,7 +18,7 @@ class TagController {
     setTimeout(async () => {
       const tags = await Tag.findAll();
       return res.json(tags);
-    }, 4000);
+    }, 1000);
   }
 }
 

@@ -18,7 +18,7 @@ class NeedController {
     setTimeout(async () => {
       const needs = await Need.findAll();
       return res.json(needs);
-    }, 4000);
+    }, 1000);
   }
 }
 

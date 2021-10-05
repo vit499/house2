@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
+import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import { Context } from "../..";
 import { createPurchase, fetchNeeds, fetchFreqs } from "../../http/purchaseApi";
@@ -9,16 +9,16 @@ const CreatePurchase = observer(({ show, onHide }) => {
   const { markStore, purchaseStore } = useContext(Context);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(50);
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    fetchFreqs()
-      .then((data) => markStore.setFreqs(data))
-      .catch((e) => {});
-    fetchNeeds()
-      .then((data) => markStore.setNeeds(data))
-      .catch((e) => {});
-  }, [markStore]);
+  // useEffect(() => {
+  //   fetchFreqs()
+  //     .then((data) => markStore.setFreqs(data))
+  //     .catch((e) => {});
+  //   fetchNeeds()
+  //     .then((data) => markStore.setNeeds(data))
+  //     .catch((e) => {});
+  // }, [markStore]);
   // const changeInfo = (key, value, number) => {
   //   const newInfo = tags.map((item) => {
   //     if (item.number === number) {

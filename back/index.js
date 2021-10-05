@@ -6,7 +6,7 @@ const router = require("./routes");
 const errorHandler = require("./middleware/errorHandlingMiddleware");
 const { fillPurchases } = require("./models/fillPurchases");
 
-const PORT = process.env.PORT || 5000;
+const API_PORT = process.env.API_PORT || 3010;
 
 const app = express();
 app.use(cors());
@@ -23,8 +23,8 @@ const start = async () => {
     await sequelize.authenticate();
     if (updateDb !== 0) await sequelize.drop();
     await sequelize.sync();
-    app.listen(PORT, () => {
-      console.log(`app listen on port ${PORT}`);
+    app.listen(API_PORT, () => {
+      console.log(`app listen on port ${API_PORT}`);
 
       if (updateDb !== 0) fillPurchases();
     });

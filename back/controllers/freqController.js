@@ -18,7 +18,7 @@ class FreqController {
     setTimeout(async () => {
       const freqs = await Freq.findAll();
       return res.json(freqs);
-    }, 4000);
+    }, 1000);
   }
 }
 
