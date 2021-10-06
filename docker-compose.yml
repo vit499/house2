@@ -9,6 +9,9 @@ services:
     container_name: vit497_front
     command: serve -s build -l 3000
     restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
     # before run cmd:  docker network create v1-network
     networks:
       - v1-network
@@ -27,6 +30,9 @@ services:
       - POSTGRES_HOST=vit497_api_db
     depends_on:
       - vit497_api_db
+    logging:
+      options:
+        max-size: 10m
     networks:
       - v1-network
 
@@ -40,6 +46,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    logging:
+      options:
+        max-size: 10m
     networks:
       - v1-network
 
@@ -48,7 +57,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/vv/work/pgdata_house2
+      device: /home/vit/work/pgdata_house2
       o: bind
 
 networks:
