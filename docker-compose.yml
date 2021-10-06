@@ -2,7 +2,7 @@ version: "3"
 
 services:
   vit497_front:
-    build: ./frontend
+    build: ./front
     container_name: vit497_front
     command: serve -s build -l 3000
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
       - v1-network
 
   vit497_api:
-    build: ./api
+    build: ./back
     container_name: vit497_api
     command: npm run start
     restart: unless-stopped
