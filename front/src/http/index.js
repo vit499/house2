@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const $host = axios.create({
-  baseURL: `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/`,
+  baseURL: process.env.REACT_APP_API_URL,
   // baseURL: "http://localhost:3006",
 });
 
 $host.defaults.timeout = 15000;
 
 const $authHost = axios.create({
-  baseURL: `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/`,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 $authHost.defaults.timeout = 15000;

@@ -2,13 +2,13 @@ version: "3"
 
 services:
   vit497_front:
-    build: ./front
+    build:
+      context: ./front
+      args:
+        API_URL: ${API_URL}
     container_name: vit497_front
     command: serve -s build -l 3000
     restart: unless-stopped
-    environment:
-      - REACT_APP_API_HOST=${REACT_APP_API_HOST}
-      - REACT_APP_API_PORT=${REACT_APP_API_PORT}
     # before run cmd:  docker network create v1-network
     networks:
       - v1-network
@@ -20,12 +20,11 @@ services:
     restart: unless-stopped
     environment:
       - API_PORT=${API_PORT}
-      - API_HOST=${API_HOST}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_PORT=${POSTGRES_PORT}
-      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=vit497_api_db
     depends_on:
       - vit497_api_db
     networks:
@@ -38,18 +37,18 @@ services:
     volumes:
       - pgdata_house2:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - v1-network
 
 volumes:
   pgdata_house2:
     driver: local
     driver_opts:
       type: none
-      device: /home/vit/pgdata_house2
+      device: /home/vv/work/pgdata_house2
       o: bind
 
 networks:
