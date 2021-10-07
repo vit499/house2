@@ -30,17 +30,6 @@ const Shop = observer(() => {
     purchaseStore,
   ]);
 
-  // useEffect(() => {
-  //   console.log("shop use effect0");
-  //   fetchPurchases()
-  //     .then((data) => {
-  //       console.log("shop purchases0", data.count);
-  //       purchaseStore.setPurchases(data.rows);
-  //       purchaseStore.setTotalCount(data.count);
-  //     })
-  //     .catch((e) => {});
-  // }, []);
-
   if (purchaseStore.load) {
     return <Load />;
   }

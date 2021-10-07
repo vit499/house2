@@ -9,12 +9,18 @@ import {
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   HOME_ROUTE,
+  ADD_PURCHASE_ROUTE,
 } from "./utils/const";
+import AddPuchasePage from "./pages/AddPuchasePage";
 
 export const authRoutes = [
   {
     path: ADMIN_ROUTE,
     Component: Admin,
+  },
+  {
+    path: ADD_PURCHASE_ROUTE,
+    Component: AddPuchasePage,
   },
 ];
 

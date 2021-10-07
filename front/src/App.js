@@ -34,28 +34,6 @@ const App = observer(() => {
   }, [userStore]);
 
   useEffect(() => {
-    // setLoad1(true);
-    // setLoad2(true);
-    // setLoad3(true);
-    // console.log("shop use effect1");
-    // fetchFreqs()
-    //   .then((data) => {
-    //     markStore.setFreqs(data);
-    //     setLoad1(false);
-    //   })
-    //   .catch((e) => {});
-    // fetchNeeds()
-    //   .then((data) => {
-    //     markStore.setNeeds(data);
-    //     setLoad2(false);
-    //   })
-    //   .catch((e) => {});
-    // fetchAllTags()
-    //   .then((data) => {
-    //     markStore.setAllTags(data);
-    //     setLoad3(false);
-    //   })
-    //   .catch((e) => {});
     markStore.fetchMark();
   }, []);
 

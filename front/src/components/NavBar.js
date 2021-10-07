@@ -3,7 +3,12 @@ import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
-import { ADMIN_ROUTE, LOGIN_ROUTE, HOME_ROUTE } from "../utils/const";
+import {
+  ADMIN_ROUTE,
+  LOGIN_ROUTE,
+  HOME_ROUTE,
+  ADD_PURCHASE_ROUTE,
+} from "../utils/const";
 import { BoxArrowRight } from "react-bootstrap-icons";
 
 const NavBar = observer(() => {
@@ -23,7 +28,14 @@ const NavBar = observer(() => {
     <Navbar bg="dark" variant="dark">
       <Container>
         <NavLink to={HOME_ROUTE} style={{ color: "white" }}>
-          Магазин
+          Список
+        </NavLink>
+        <NavLink
+          to={ADD_PURCHASE_ROUTE}
+          style={{ color: "white" }}
+          className="ml-2"
+        >
+          Добавить
         </NavLink>
         <Nav className="ml-auto">
           {userStore.data && (

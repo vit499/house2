@@ -1,17 +1,15 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Form } from "react-bootstrap";
 import { Context } from "..";
 
 const NeedBar = observer(() => {
   const { markStore, purchaseStore } = useContext(Context);
-  const [indexRadio, setIndexRadio] = useState(0);
 
   const handleChange = (e) => {
     e.persist();
     const id = Number(e.target.id);
     console.log("need id", id);
-    setIndexRadio(id);
     purchaseStore.setSelectedNeedId(id);
   };
 
@@ -35,7 +33,7 @@ const NeedBar = observer(() => {
                 id={need.id}
                 label={need.name}
                 value={need.name}
-                checked={need.id === indexRadio}
+                checked={need.id === purchaseStore.selectedNeedId}
                 onChange={handleChange}
               />
             </div>
@@ -45,7 +43,7 @@ const NeedBar = observer(() => {
           id="0"
           label="-"
           value="off"
-          checked={indexRadio === 0}
+          checked={purchaseStore.selectedNeedId === 0}
           onChange={handleChange}
         />
       </Form>
