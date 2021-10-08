@@ -1,0 +1,37 @@
+#
+name: CI
+
+on:
+  push:
+    #branches:
+    #  - master
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      #- uses: actions/checkout@v2
+
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          sudo chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo ssh known hosts has been copied?
+          # cd ~/.ssh/
+          # ls -la
+          # echo ~/.ssh/known_hosts
+          ssh "$HOST_USER"@"$HOST_IP" 'cd work/house2 && ls -l && git pull && docker-compose up --build -d'
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+          HOST_IP: ${{secrets.HOST_IP}}
+          HOST_USER: ${{secrets.HOST_USER}}
+
+      - name: empty script
+        run: echo end empyt script

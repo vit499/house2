@@ -3,11 +3,13 @@ import { Button, Container } from "react-bootstrap";
 import CreateNeed from "../components/modals/CreateNeed";
 import CreatePurchase from "../components/modals/CreatePurchase";
 import CreateFreq from "../components/modals/CreateFreq";
+import CreateTag from "../components/modals/CreateTag";
 import DropDb from "../components/modals/DropDb";
 
 const Admin = () => {
   const [showFreq, setShowFreq] = useState(false);
   const [showNeed, setShowNeed] = useState(false);
+  const [showTag, setShowTag] = useState(false);
   const [showPurchase, setShowPurchase] = useState(false);
   const [showDrop, setShowDrop] = useState(false);
   return (
@@ -34,6 +36,15 @@ const Admin = () => {
         variant="outline-dark"
         className="mt-2"
         onClick={() => {
+          setShowTag(true);
+        }}
+      >
+        add tag
+      </Button>
+      <Button
+        variant="outline-dark"
+        className="mt-2"
+        onClick={() => {
           setShowPurchase(true);
         }}
       >
@@ -50,6 +61,7 @@ const Admin = () => {
       </Button>
       <CreateFreq show={showFreq} onHide={() => setShowFreq(false)} />
       <CreateNeed show={showNeed} onHide={() => setShowNeed(false)} />
+      <CreateTag show={showTag} onHide={() => setShowTag(false)} />
       <CreatePurchase
         show={showPurchase}
         onHide={() => setShowPurchase(false)}

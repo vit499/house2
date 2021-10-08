@@ -4,13 +4,37 @@ const ApiError = require("../error/ApiError");
 
 class FreqController {
   async create(req, res, next) {
-    // console.log("Freq", req.body);
-    const { name } = req.body;
-    if (!name) {
-      return next(ApiError.badRequest("no name"));
+    try {
+      console.log("Freq", req.body);
+      const { name } = req.body;
+      if (!name) {
+        return next(ApiError.badRequest("no name"));
+      }
+      await Freq.create({ name });
+      const freqs = await Freq.findAll();
+      return res.json(freqs);
+    } catch (err) {
+      return next(ApiError.badRequest(err.message));
     }
-    const freq = await Freq.create({ name });
-    return res.json(freq);
+  }
+
+  async delete(req, res, next) {
+    console.log("Freq del", req.params);
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return next(ApiError.badRequest("no freq id"));
+      }
+      await Freq.destroy({
+        where: {
+          id,
+        },
+      });
+      const freqs = await Freq.findAll();
+      return res.json(freqs);
+    } catch (err) {
+      return next(ApiError.badRequest(err.message));
+    }
   }
 
   async getAll(req, res) {

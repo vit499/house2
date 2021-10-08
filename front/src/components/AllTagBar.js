@@ -7,18 +7,18 @@ const AllTagBar = observer(() => {
   const { markStore } = useContext(Context);
 
   if (!markStore) {
-    console.log("no allTags no dev");
-    // return <div>no allTags</div>;
+    console.log("no tags no dev");
+    // return <div>no tags</div>;
   }
-  if (!markStore.allTags) {
-    console.log("no allTags");
-    // return <div>no allTags</div>;
+  if (!markStore.tags) {
+    console.log("no tags");
+    // return <div>no tags</div>;
   }
   return (
     <div>
       <Form>
-        {markStore.allTags &&
-          markStore.allTags.map((allTag) => (
+        {markStore.tags &&
+          markStore.tags.map((allTag) => (
             <div key={allTag.id} className="mb-1">
               <Form.Check type="checkbox" label={allTag.name} />
             </div>

@@ -126,7 +126,7 @@ const PurchasePage = observer(() => {
                 margin: "0.5rem",
               }}
             >
-              {markStore.allTags.map((allTag) => (
+              {markStore.tags.map((allTag) => (
                 <Col sm="6" lg="3" key={allTag.id}>
                   <div key={allTag.id} className="mb-1">
                     <Form.Check
@@ -232,7 +232,7 @@ const PurchasePage = observer(() => {
   //       <ListGroup className="list-group-flush">
   //         <ListGroupItem>
   //           <Row>
-  //             {markStore.allTags.map((allTag) => (
+  //             {markStore.tags.map((allTag) => (
   //               <Col md="3" key={allTag.id}>
   //                 <div key={allTag.id} className="mb-1">
   //                   <Form.Check

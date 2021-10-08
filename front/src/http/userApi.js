@@ -23,16 +23,16 @@ const login = async (email, password) => {
 };
 
 const checkAuth = async () => {
-  try {
-    console.log("[get] checkAuth");
-    const { data } = await $authHost.get("api/user/auth", {});
-    console.log("data check", data);
-    const u = await jwtDecode(data.token);
-    await localStorage.setItem("token", data.token);
-    return u;
-  } catch (err) {
-    // console.log("check auth err", err);
-  }
+  // try {
+  // console.log("[get] checkAuth");
+  const { data } = await $authHost.get("api/user/auth", {});
+  console.log("data check", data);
+  const u = await jwtDecode(data.token);
+  await localStorage.setItem("token", data.token);
+  return u;
+  // } catch (err) {
+  // console.log("check auth err", err);
+  // }
 };
 
 const dropDb = async () => {

@@ -94,7 +94,7 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                   margin: "0.5rem",
                 }}
               >
-                {markStore.allTags.map((allTag) => (
+                {markStore.tags.map((allTag) => (
                   <Col sm="6" lg="3" key={allTag.id}>
                     <div key={allTag.id} className="mb-1">
                       <Form.Check
@@ -167,7 +167,14 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                   >
                     Отмена
                   </Button>
-                  <Button className="mr-3" variant="link" type="submit">
+                  <Button
+                    className="mr-3"
+                    variant="link"
+                    type="submit"
+                    onClick={(e) => {
+                      handleSubmit(e, purchase);
+                    }}
+                  >
                     Сохранить
                   </Button>
                   {showDel && (

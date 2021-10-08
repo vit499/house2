@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Context } from "../..";
 
-const CreateFreq = ({ show, onHide }) => {
+const CreateTag = ({ show, onHide }) => {
   const [value, setValue] = useState("");
   const { markStore } = useContext(Context);
 
@@ -10,10 +10,10 @@ const CreateFreq = ({ show, onHide }) => {
     e.preventDefault();
     const valCopy = value;
     setValue("");
-    markStore.createFreq({ name: valCopy });
+    markStore.createTag({ name: valCopy });
   };
   const deleteOne = (id) => {
-    markStore.delFreq(id);
+    markStore.delTag(id);
   };
 
   return (
@@ -25,23 +25,21 @@ const CreateFreq = ({ show, onHide }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Create freq
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Create tag</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form className="" onSubmit={addClick}>
-          {markStore.freqs &&
-            markStore.freqs.map((freq) => (
-              <div key={freq.id} className="mb-1">
+          {markStore.tags &&
+            markStore.tags.map((tag) => (
+              <div key={tag.id} className="mb-1">
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm={4}>
-                    {freq.name}
+                    {tag.name}
                   </Form.Label>
                   <Col sm={4}>
                     <Button
                       variant="outline-secondary"
-                      onClick={() => deleteOne(freq.id)}
+                      onClick={() => deleteOne(tag.id)}
                     >
                       Del
                     </Button>
@@ -54,7 +52,7 @@ const CreateFreq = ({ show, onHide }) => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="mt-3"
-            placeholder="freq"
+            placeholder="tag"
           />
         </Form>
       </Modal.Body>
@@ -70,4 +68,4 @@ const CreateFreq = ({ show, onHide }) => {
   );
 };
 
-export default CreateFreq;
+export default CreateTag;

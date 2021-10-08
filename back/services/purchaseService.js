@@ -10,20 +10,15 @@ const getTagArr = (tagStr) => {
 
 class PurchaseService {
   async savePurchase(req) {
-    const { name, price, needId, freqId, tagList } = req;
+    const { name, price, needId, freqId, tags } = req.body;
 
-    const tags = getTagArr(tagList);
-    const purchase = { name, price, needId, freqId, tags };
+    const p1 = { name, price, needId, freqId, tags };
 
-    try {
-      const p = await Purchase.create(purchase);
-      // const pp = new PurchaseDto(p);
-      // console.log("result save purchase", result);
-      return p;
-    } catch (e) {
-      console.log("err purchase", e);
-      throw ApiError.BadRequest(e);
-    }
+    const p2 = await Purchase.create(p1);
+
+    console.log("p2", JSON.stringify(p2, null, 2));
+    console.log("p2", p2.rows[0]);
+    return p2;
   }
 
   async getAll(req) {
@@ -57,7 +52,7 @@ class PurchaseService {
       });
     }
 
-    console.log(": ", purchases);
+    // console.log(": ", purchases);
     return purchases;
   }
 
@@ -68,6 +63,38 @@ class PurchaseService {
     // const purchase = new PurchaseDto(p);
     console.log("one p: ", JSON.stringify(purchase, null, 2));
     return purchase;
+  }
+
+  async updateOne(req) {
+    const { id, name, price, needId, freqId, tags } = req.body;
+    const p1 = { name, price, needId, freqId, tags };
+    console.log("p1", JSON.stringify(p1, null, 2));
+
+    // const p2 = await Purchase.findOne({ where: { id } });
+    // const p3 = { ...p2, ...p1 };
+
+    const p3 = await Purchase.update(
+      { name, price, needId, freqId, tags },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    console.log("p3", JSON.stringify(p3, null, 2));
+    console.log("p3", p3.rows[0]);
+    return p3;
+  }
+
+  async deleteOne(id) {
+    const delRows = await Purchase.destroy({
+      where: {
+        id,
+      },
+    });
+    console.log("cnt rows del", delRows);
+    return { del: delRows };
   }
 }
 

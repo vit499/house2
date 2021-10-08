@@ -30,7 +30,7 @@ const checkRole = (role) => {
         return res.status(401).json({ message: "no user" });
       }
       // console.log("decoded", decodedUser);
-      if (decodedUser.role !== role) {
+      if (decodedUser.role !== "ADMIN" && decodedUser.role !== role) {
         return res.status(403).json({ message: "no admin" });
       }
       req.user = decodedUser;

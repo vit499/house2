@@ -5,7 +5,7 @@ export default class MarkStore {
   constructor() {
     this._freqs = [];
     this._needs = [];
-    this._allTags = [];
+    this._tags = [];
     this._load = false;
     makeAutoObservable(this);
   }
@@ -15,8 +15,8 @@ export default class MarkStore {
   setNeeds(needs) {
     this._needs = needs;
   }
-  setAllTags(allTags) {
-    this._allTags = allTags;
+  setAllTags(tags) {
+    this._tags = tags;
   }
 
   get freqs() {
@@ -25,20 +25,13 @@ export default class MarkStore {
   get needs() {
     return this._needs;
   }
-  get allTags() {
-    return this._allTags;
+  get tags() {
+    return this._tags;
   }
   get load() {
     return this._load;
   }
 
-  // async fetchFreqs() {
-  //   console.log("[get] fetchFreqs");
-  //   const response = await $host.get("api/freq", {});
-  //   const { data } = response;
-  //   // console.log("f freqs", data);
-  //   return data;
-  // }
   // async fetchNeeds() {
   //   console.log("[get] fetchNeeds");
   //   const { data } = await $host.get("api/need", {});
@@ -62,7 +55,7 @@ export default class MarkStore {
         console.log("get tags", tags.data);
         console.log("get needs", needs.data);
         console.log("get freqs", freqs.data);
-        this._allTags = tags.data;
+        this._tags = tags.data;
         this._needs = needs.data;
         this._freqs = freqs.data;
         this._load = false;
@@ -72,5 +65,78 @@ export default class MarkStore {
         this._load = false;
       });
     }
+  }
+  async createFreq(freq) {
+    this._load = true;
+    console.log("createFreq", freq);
+    try {
+      const freqs = await $authHost.post("api/freq", freq);
+      runInAction(() => {
+        console.log("get freqs", freqs.data);
+        this._freqs = freqs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+  async delFreq(id) {
+    this._load = true;
+    console.log("delFreq", id);
+    try {
+      const freqs = await $authHost.delete(`api/freq/${id}`);
+      runInAction(() => {
+        console.log("get freqs", freqs.data);
+        this._freqs = freqs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+
+  async createTag(tag) {
+    this._load = true;
+    console.log("createTag", tag);
+    try {
+      const tags = await $authHost.post("api/tag", tag);
+      runInAction(() => {
+        console.log("get tags", tags.data);
+        this._tags = tags.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+  async delTag(id) {
+    this._load = true;
+    console.log("delTag", id);
+    try {
+      const tags = await $authHost.delete(`api/tag/${id}`);
+      runInAction(() => {
+        console.log("get tags", tags.data);
+        this._tags = tags.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+
+  async fetchFreqs() {
+    console.log("[get] fetchFreqs");
+    const response = await $host.get("api/freq", {});
+    const { data } = response;
+    // console.log("f freqs", data);
+    return data;
   }
 }

@@ -6,13 +6,13 @@ const purchaseService = require("../services/purchaseService");
 
 class PurchaseController {
   async create(req, res, next) {
-    console.log("Purchase", req.body);
+    console.log("create Purchase", req.body);
     try {
-      const purchaseSaved = purchaseService.savePurchase(req, next);
+      const purchase = purchaseService.savePurchase(req);
 
-      return res.json(purchaseSaved);
+      return res.json(purchase);
     } catch (err) {
-      return err;
+      return next(ApiError.badRequest(err.message));
     }
   }
 
@@ -23,7 +23,7 @@ class PurchaseController {
         const purchases = await purchaseService.getAll(req);
         return res.json(purchases);
       } catch (err) {
-        return err;
+        return next(ApiError.badRequest(err.message));
       }
     }, 1000);
     // try {
@@ -49,16 +49,36 @@ class PurchaseController {
         return next(ApiError.badRequest(err.message));
       }
     }, 1000);
-    // try {
-    //   const { id } = req.params;
-    //   if (!id) {
-    //     return next(ApiError.badRequest("no purchase id"));
-    //   }
-    //   const purchase = await purchaseService.getOne(id);
-    //   return res.json(purchase);
-    // } catch (err) {
-    //   return next(ApiError.badRequest(err.message));
-    // }
+  }
+
+  async update(req, res, next) {
+    console.log("update purchase", req.body);
+    try {
+      const { id } = req.body;
+      if (!id) {
+        return next(ApiError.badRequest("no purchase id"));
+      }
+      const purchase = purchaseService.updateOne(req);
+
+      return res.json(purchase);
+    } catch (err) {
+      return next(ApiError.badRequest(err.message));
+    }
+  }
+
+  async delete(req, res, next) {
+    console.log("delete purchase", req.params);
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return next(ApiError.badRequest("no purchase id"));
+      }
+      const purchase = purchaseService.deleteOne(id);
+
+      return res.json(purchase);
+    } catch (err) {
+      return next(ApiError.badRequest(err.message));
+    }
   }
 }
 
