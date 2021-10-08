@@ -87,7 +87,7 @@ class UserController {
     console.log("drop db");
     // await DropDb();
     await sequelize.drop();
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     const ans = { message: "drop ok" };
     return res.json(ans);
   }
