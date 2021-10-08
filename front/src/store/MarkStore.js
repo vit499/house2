@@ -99,6 +99,39 @@ export default class MarkStore {
     }
   }
 
+  async createNeed(need) {
+    this._load = true;
+    console.log("createNeed", need);
+    try {
+      const needs = await $authHost.post("api/need", need);
+      runInAction(() => {
+        console.log("get needs", needs.data);
+        this._needs = needs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+  async delNeed(id) {
+    this._load = true;
+    console.log("delNeed", id);
+    try {
+      const needs = await $authHost.delete(`api/need/${id}`);
+      runInAction(() => {
+        console.log("get needs", needs.data);
+        this._needs = needs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+
   async createTag(tag) {
     this._load = true;
     console.log("createTag", tag);

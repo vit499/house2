@@ -1,29 +1,19 @@
-import React, { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
-import { createNeed } from "../../http/purchaseApi";
+import React, { useContext, useState } from "react";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Context } from "../..";
 
 const CreateNeed = ({ show, onHide }) => {
   const [value, setValue] = useState("");
-  const [act, setAct] = useState(false);
+  const { markStore } = useContext(Context);
 
-  const addClick = () => {
-    if (!act) return;
+  const addClick = (e) => {
+    e.preventDefault();
     const valCopy = value;
     setValue("");
-    setAct(false);
-    createNeed({ name: valCopy }).then((data) => {
-      onHide();
-    });
+    markStore.createNeed({ name: valCopy });
   };
-  const checkAct = (e) => {
-    const v = e.target.value;
-    setValue(v);
-    if (v !== "") setAct(true);
-    else setAct(false);
-  };
-  const submit = (e) => {
-    e.preventDefault();
-    addClick();
+  const deleteOne = (id) => {
+    markStore.delNeed(id);
   };
 
   return (
@@ -40,10 +30,29 @@ const CreateNeed = ({ show, onHide }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form className="" onSubmit={submit}>
+        <Form className="" onSubmit={addClick}>
+          {markStore.needs &&
+            markStore.needs.map((need) => (
+              <div key={need.id} className="mb-1">
+                <Form.Group as={Row} className="mb-3">
+                  <Form.Label column sm={4}>
+                    {need.name}
+                  </Form.Label>
+                  <Col sm={4}>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => deleteOne(need.id)}
+                    >
+                      Del
+                    </Button>
+                  </Col>
+                </Form.Group>
+              </div>
+            ))}
+
           <Form.Control
             value={value}
-            onChange={checkAct}
+            onChange={(e) => setValue(e.target.value)}
             className="mt-3"
             placeholder="need"
           />
@@ -53,11 +62,7 @@ const CreateNeed = ({ show, onHide }) => {
         <Button variant="outline-secondary" onClick={onHide}>
           Close
         </Button>
-        <Button
-          variant="outline-primary"
-          onClick={() => addClick()}
-          disabled={!act}
-        >
+        <Button variant="outline-primary" onClick={(e) => addClick(e)}>
           Add
         </Button>
       </Modal.Footer>
