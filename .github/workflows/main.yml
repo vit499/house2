@@ -25,11 +25,16 @@ jobs:
           # cd ~/.ssh/
           # ls -la
           # echo ~/.ssh/known_hosts
-          ssh "$HOST_USER"@"$HOST_IP" 'cd work/house2 && ls -l && git pull && docker-compose up --build -d'
+          # ssh "$HOST_USER"@"$HOST_IP" 'cd work/house2 && ls -l && git pull && docker-compose up --build -d'
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
           SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+
+      - name: pull and compose
+        run: ssh "$HOST_USER"@"$HOST_IP" 'cd work/house2 && ls -l && git pull && docker-compose up --build -d'
+        shell: bash
+        env:
           HOST_IP: ${{secrets.HOST_IP}}
           HOST_USER: ${{secrets.HOST_USER}}
 
