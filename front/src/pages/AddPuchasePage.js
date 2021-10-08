@@ -11,6 +11,8 @@ const AddPuchasePage = () => {
   const handleSubmit = (e, p) => {
     e.preventDefault();
     console.log("sub new pur", p);
+    if (p.name === "" || p.price === "") return;
+    purchaseStore.createPurchase(p);
   };
   const handleCancel = (e) => {
     console.log("add cancel");

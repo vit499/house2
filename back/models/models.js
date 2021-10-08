@@ -11,7 +11,7 @@ const User = sequelize.define("user", {
 
 const Purchase = sequelize.define("purchase", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+  name: { type: DataTypes.STRING, allowNull: false },
   price: { type: DataTypes.INTEGER, allowNull: false },
   tags: { type: DataTypes.STRING },
 });

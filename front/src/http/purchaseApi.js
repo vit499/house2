@@ -1,12 +1,12 @@
 import { $authHost, $host } from "./index";
 
-const createFreq = async (freq) => {
-  try {
-    // console.log('createFreq');
-    const { data } = await $authHost.post("api/freq", freq);
-    return data;
-  } catch (err) {}
-};
+// const createFreq = async (freq) => {
+//   try {
+//     // console.log('createFreq');
+//     const { data } = await $authHost.post("api/freq", freq);
+//     return data;
+//   } catch (err) {}
+// };
 
 // const fetchFreqs = async () => {
 //   const { data } = await $host.get("api/freq", {});
@@ -25,10 +25,10 @@ const createFreq = async (freq) => {
 //   }
 // };
 
-const createNeed = async (need) => {
-  const { data } = await $authHost.post("api/need", need);
-  return data;
-};
+// const createNeed = async (need) => {
+//   const { data } = await $authHost.post("api/need", need);
+//   return data;
+// };
 
 // const fetchNeeds = async () => {
 //   console.log("[get] fetchNeeds");
@@ -36,10 +36,10 @@ const createNeed = async (need) => {
 //   return data;
 // };
 
-const createTag = async (tag) => {
-  const { data } = await $authHost.post("api/tag", tag);
-  return data;
-};
+// const createTag = async (tag) => {
+//   const { data } = await $authHost.post("api/tag", tag);
+//   return data;
+// };
 
 // const fetchAllTags = async () => {
 //   // console.log("[get] fetchAllTags");
@@ -78,11 +78,11 @@ const fetchOnePurchase = async (id) => {
 };
 
 export {
-  createFreq,
+  // createFreq,
   // fetchFreqs,
-  createNeed,
+  // createNeed,
   // fetchNeeds,
-  createTag,
+  // createTag,
   // fetchAllTags,
   createPurchase,
   // fetchPurchases,

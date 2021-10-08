@@ -92,4 +92,72 @@ export default class PurchaseStore {
       });
     }
   }
+
+  async createNeed(need) {
+    this._load = true;
+    console.log("createNeed", need);
+    try {
+      const needs = await $authHost.post("api/need", need);
+      runInAction(() => {
+        console.log("get needs", needs.data);
+        this._needs = needs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+  async createPurchase(p) {
+    this._load = true;
+    console.log("create purchase", p);
+    const tags = p.tags.join(" ");
+    const purchase = { ...p, tags: tags };
+    console.log("create purchase", p);
+    try {
+      const purchases = await $authHost.post("api/purchase", purchase);
+      runInAction(() => {
+        console.log("get purs", purchases.data);
+        // this._needs = needs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+  async updatePurchase(purchase, id) {
+    this._load = true;
+    console.log("update purchase", purchase);
+    try {
+      const purchases = await $authHost.put(`api/purchase/${id}`, purchase);
+      runInAction(() => {
+        console.log("get pur", purchases.data);
+        // this._needs = needs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
+  async delPurchase(id) {
+    this._load = true;
+    console.log("del purchase", id);
+    try {
+      const purchases = await $authHost.delete(`api/purchase/${id}`);
+      runInAction(() => {
+        console.log("get purs", purchases.data);
+        // this._needs = needs.data;
+        this._load = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this._load = false;
+      });
+    }
+  }
 }

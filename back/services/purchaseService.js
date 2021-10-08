@@ -17,7 +17,6 @@ class PurchaseService {
     const p2 = await Purchase.create(p1);
 
     console.log("p2", JSON.stringify(p2, null, 2));
-    console.log("p2", p2.rows[0]);
     return p2;
   }
 
