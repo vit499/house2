@@ -1,5 +1,5 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import { $authHost, $host } from "../http/index";
+import { flow, makeAutoObservable, runInAction } from "mobx";
+import { $host } from "../http/index";
 
 export default class PurchaseStore {
   // _load = false;
@@ -11,9 +11,11 @@ export default class PurchaseStore {
     this._page = 1;
     this._totalCount = 0;
     this._limit = 2;
-    this._load = false;
+    this._load = "none";
     this._reqPurchase = true;
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      updatePurchase: flow,
+    });
   }
 
   setPurchases(purchases) {
@@ -67,7 +69,7 @@ export default class PurchaseStore {
   }
 
   async fetchPurchases(freqId, needId, page, limit) {
-    this._load = true;
+    this._load = "load";
     console.log("[get] fetchPurchases");
     try {
       const { data } = await $host.get("api/purchase", {
@@ -84,80 +86,82 @@ export default class PurchaseStore {
         // this.setTotalCount(data.count);
         this._purchases = data.rows;
         this._totalCount = data.count;
-        this._load = false;
+        this._load = "done";
       });
     } catch (err) {
       runInAction(() => {
-        this._load = false;
+        this._load = "err";
       });
     }
   }
+  // async fetchOnePurchase(id) {
+  //   this._load = "load";
+  //   console.log("[get] fetchOnePurchase");
+  //   try {
+  //     const purchases = await $host.get(`api/purchase/${id}`, {});
+  //     runInAction(() => {
+  //       console.log("get pur", purchases.data);
+  //       // this._needs = needs.data;
+  //       this._load = "done";
+  //     });
+  //   } catch (err) {
+  //     runInAction(() => {
+  //       this._load = "err";
+  //     });
+  //   }
+  // }
 
-  async createNeed(need) {
-    this._load = true;
-    console.log("createNeed", need);
-    try {
-      const needs = await $authHost.post("api/need", need);
-      runInAction(() => {
-        console.log("get needs", needs.data);
-        this._needs = needs.data;
-        this._load = false;
-      });
-    } catch (err) {
-      runInAction(() => {
-        this._load = false;
-      });
-    }
-  }
-  async createPurchase(p) {
-    this._load = true;
-    console.log("create purchase", p);
-    const tags = p.tags.join(" ");
-    const purchase = { ...p, tags: tags };
-    console.log("create purchase", p);
-    try {
-      const purchases = await $authHost.post("api/purchase", purchase);
-      runInAction(() => {
-        console.log("get purs", purchases.data);
-        // this._needs = needs.data;
-        this._load = false;
-      });
-    } catch (err) {
-      runInAction(() => {
-        this._load = false;
-      });
-    }
-  }
-  async updatePurchase(purchase, id) {
-    this._load = true;
-    console.log("update purchase", purchase);
-    try {
-      const purchases = await $authHost.put(`api/purchase/${id}`, purchase);
-      runInAction(() => {
-        console.log("get pur", purchases.data);
-        // this._needs = needs.data;
-        this._load = false;
-      });
-    } catch (err) {
-      runInAction(() => {
-        this._load = false;
-      });
-    }
-  }
-  async delPurchase(id) {
-    this._load = true;
-    console.log("del purchase", id);
-    try {
-      const purchases = await $authHost.delete(`api/purchase/${id}`);
-      runInAction(() => {
-        console.log("get purs", purchases.data);
-        // this._needs = needs.data;
-        this._load = false;
-      });
-    } catch (err) {
-      runInAction(() => {
-        this._load = false;
-      });
-    }
-  }
+  // async createPurchase(p) {
+  //   this._load = "load";
+  //   console.log("create purchase", p);
+  //   const tags = p.tags.join(" ");
+  //   const purchase = { ...p, tags: tags };
+  //   console.log("create purchase", p);
+  //   try {
+  //     const purchases = await $authHost.post("api/purchase", purchase);
+  //     runInAction(() => {
+  //       console.log("get purs", purchases.data);
+  //       // this._needs = needs.data;
+  //       this._load = "done";
+  //     });
+  //   } catch (err) {
+  //     runInAction(() => {
+  //       this._load = "err";
+  //     });
+  //   }
+  // }
+  // *updatePurchase(p, id) {
+  //   this._load = "load";
+  //   console.log("update purchase", p);
+  //   const tags = p.tags.join(" ");
+  //   const purchase = { ...p, tags: tags };
+  //   try {
+  //     const purchases = yield $authHost.put(`api/purchase/${id}`, purchase);
+  //     runInAction(() => {
+  //       console.log("get pur", purchases.data);
+  //       // this._needs = needs.data;
+  //       this._load = "done";
+  //     });
+  //   } catch (err) {
+  //     runInAction(() => {
+  //       this._load = "err";
+  //     });
+  //   }
+  // }
+  // async deletePurchase(id) {
+  //   this._load = "load";
+  //   console.log("del purchase", id);
+  //   try {
+  //     const purchases = await $authHost.delete(`api/purchase/${id}`);
+  //     runInAction(() => {
+  //       console.log("get purs", purchases.data);
+  //       // this._needs = needs.data;
+  //       this._load = "done";
+  //     });
+  //   } catch (err) {
+  //     runInAction(() => {
+  //       this._load = "err";
+  //     });
+  //   }
+  // }
 }

@@ -1,58 +1,45 @@
-import React, { useContext, useState } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Context } from "..";
 
-const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
-  const { markStore, purchaseStore } = useContext(Context);
-  const [purchase, setPurchase] = useState({
-    name: "",
-    price: "",
-    needId: 3,
-    freqId: 1,
-    tags: [],
-  });
+const Pur = observer(({ showDel, handleSubmit, handleCancel, handleDel }) => {
+  const { markStore, purStore } = useContext(Context);
 
+  if (!purStore.Pur) {
+    console.log("no pur");
+    return <div>no Pur</div>;
+  }
   const changeName = (e) => {
     const name = e.target.value;
-    const p = { ...purchase, name };
-    setPurchase(p);
+    purStore.setName(name);
   };
   const changePrice = (e) => {
     let n = Number(e.target.value);
     let price;
-    // console.log("price", n);
     if (isNaN(n)) price = 0;
     else price = n;
-    // console.log("price", price);
-    const p = { ...purchase, price };
-    setPurchase(p);
+    purStore.setPrice(price);
   };
   const changeTag = (e) => {
     const tag = e.target.value;
-    let p;
     let tags;
-    if (purchase.tags.includes(tag)) {
-      tags = purchase.tags.filter((t) => t !== tag);
+    if (purStore.Pur.tags.includes(tag)) {
+      tags = purStore.Pur.tags.filter((t) => t !== tag);
     } else {
-      tags = [...purchase.tags, tag];
+      tags = [...purStore.Pur.tags, tag];
     }
-    p = { ...purchase, tags };
-    // console.log("p", JSON.stringify(p, null, 2));
-    setPurchase(p);
+    purStore.setTags(tags);
   };
   const changeNeed = (e) => {
     const needId = Number(e.target.id);
     console.log("change need", needId);
-    const p = { ...purchase, needId };
-    console.log("p", JSON.stringify(p, null, 2));
-    setPurchase(p);
+    purStore.setNeedId(needId);
   };
   const changeFreq = (e) => {
     const freqId = Number(e.target.id);
     console.log("change need", freqId);
-    const p = { ...purchase, freqId };
-    console.log("p", JSON.stringify(p, null, 2));
-    setPurchase(p);
+    purStore.setFreqId(freqId);
   };
 
   return (
@@ -73,13 +60,13 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                 }}
               >
                 <Form.Control
-                  value={purchase.name}
+                  value={purStore.Pur.name}
                   onChange={(e) => changeName(e)}
                   className="mb-2"
                   placeholder="покупка"
                 />
                 <Form.Control
-                  value={purchase.price}
+                  value={purStore.Pur.price}
                   onChange={(e) => changePrice(e)}
                   className=""
                   placeholder="цена"
@@ -102,7 +89,7 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                         label={allTag.name}
                         value={allTag.name}
                         onChange={(e) => changeTag(e)}
-                        checked={purchase.tags.includes(allTag.name)}
+                        checked={purStore.Pur.tags.includes(allTag.name)}
                       />
                     </div>
                   </Col>
@@ -129,7 +116,7 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                         id={need.id}
                         label={need.name}
                         value={need.name}
-                        checked={need.id === purchase.needId}
+                        checked={need.id === purStore.Pur.needId}
                         onChange={changeNeed}
                       />
                     </div>
@@ -150,7 +137,7 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                           id={freq.id}
                           label={freq.name}
                           value={freq.name}
-                          checked={freq.id === purchase.freqId}
+                          checked={freq.id === purStore.Pur.freqId}
                           onChange={changeFreq}
                         />
                       </div>
@@ -172,7 +159,7 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
                     variant="link"
                     type="submit"
                     onClick={(e) => {
-                      handleSubmit(e, purchase);
+                      handleSubmit(e);
                     }}
                   >
                     Сохранить
@@ -191,6 +178,6 @@ const Purchase = ({ showDel, handleSubmit, handleCancel, handleDel }) => {
       </Container>
     </div>
   );
-};
+});
 
-export default Purchase;
+export default Pur;

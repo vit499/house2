@@ -54,7 +54,7 @@ class PurchaseController {
   async update(req, res, next) {
     console.log("update purchase", req.body);
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       if (!id) {
         return next(ApiError.badRequest("no purchase id"));
       }

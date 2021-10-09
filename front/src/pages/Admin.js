@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import CreateNeed from "../components/modals/CreateNeed";
-import CreatePurchase from "../components/modals/CreatePurchase";
 import CreateFreq from "../components/modals/CreateFreq";
 import CreateTag from "../components/modals/CreateTag";
 import DropDb from "../components/modals/DropDb";
@@ -10,7 +9,6 @@ const Admin = () => {
   const [showFreq, setShowFreq] = useState(false);
   const [showNeed, setShowNeed] = useState(false);
   const [showTag, setShowTag] = useState(false);
-  const [showPurchase, setShowPurchase] = useState(false);
   const [showDrop, setShowDrop] = useState(false);
   return (
     <Container className="d-flex flex-column">
@@ -45,15 +43,6 @@ const Admin = () => {
         variant="outline-dark"
         className="mt-2"
         onClick={() => {
-          setShowPurchase(true);
-        }}
-      >
-        add purchase
-      </Button>
-      <Button
-        variant="outline-dark"
-        className="mt-2"
-        onClick={() => {
           setShowDrop(true);
         }}
       >
@@ -62,10 +51,6 @@ const Admin = () => {
       <CreateFreq show={showFreq} onHide={() => setShowFreq(false)} />
       <CreateNeed show={showNeed} onHide={() => setShowNeed(false)} />
       <CreateTag show={showTag} onHide={() => setShowTag(false)} />
-      <CreatePurchase
-        show={showPurchase}
-        onHide={() => setShowPurchase(false)}
-      />
       <DropDb show={showDrop} onHide={() => setShowDrop(false)} />
     </Container>
   );

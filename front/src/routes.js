@@ -1,5 +1,4 @@
 import Admin from "./pages/Admin";
-import PurchasePage from "./pages/PurchasePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Shop from "./pages/Home";
@@ -11,7 +10,8 @@ import {
   HOME_ROUTE,
   ADD_PURCHASE_ROUTE,
 } from "./utils/const";
-import AddPuchasePage from "./pages/AddPuchasePage";
+import AddPurPage from "./pages/AddPurPage";
+import PurPage from "./pages/PurPage";
 
 export const authRoutes = [
   {
@@ -20,7 +20,7 @@ export const authRoutes = [
   },
   {
     path: ADD_PURCHASE_ROUTE,
-    Component: AddPuchasePage,
+    Component: AddPurPage,
   },
 ];
 
@@ -39,6 +39,6 @@ export const publicRoutes = [
   },
   {
     path: PURCHASE_ROUTE + "/:id",
-    Component: PurchasePage,
+    Component: PurPage,
   },
 ];

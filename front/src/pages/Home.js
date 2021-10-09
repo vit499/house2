@@ -6,9 +6,9 @@ import NeedBar from "../components/NeedBar";
 import PurchaseList from "../components/PurchaseList";
 import Pagin from "../components/Pagin";
 import FreqBar from "../components/FreqBar";
-// import { fetchPurchases } from "../http/purchaseApi";
 import AllTagBar from "../components/AllTagBar";
 import Load from "../components/Load";
+import Err from "../components/Err";
 
 const Shop = observer(() => {
   const { purchaseStore } = useContext(Context);
@@ -30,9 +30,13 @@ const Shop = observer(() => {
     purchaseStore,
   ]);
 
-  if (purchaseStore.load) {
+  if (purchaseStore.load === "load") {
     return <Load />;
   }
+  if (purchaseStore.load === "err") {
+    return <Err />;
+  }
+
   return (
     <Container>
       <Row className="mt-5">

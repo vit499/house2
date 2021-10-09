@@ -1,16 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
-import {
-  Button,
-  Card,
-  Container,
-  Form,
-  Row,
-  Col,
-  Spinner,
-} from "react-bootstrap";
+import { Button, Card, Container, Form, Row, Col } from "react-bootstrap";
 import { NavLink, useHistory, Redirect } from "react-router-dom";
 import { Context } from "..";
+import Load from "../components/Load";
 import { login } from "../http/userApi";
 import { REGISTER_ROUTE, HOME_ROUTE } from "../utils/const";
 
@@ -20,18 +13,6 @@ const Login = observer(() => {
   const [password, setPassword] = useState("");
   const [load, setLoad] = useState(false);
   const history = useHistory();
-
-  const wrapperStyle = {
-    position: "fixed",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  };
 
   const signIn = async (e) => {
     console.log("signIn");
@@ -63,11 +44,7 @@ const Login = observer(() => {
     return <Redirect to={HOME_ROUTE} />;
   }
   if (load) {
-    return (
-      <div style={wrapperStyle}>
-        <Spinner animation="border" variant="primary" />
-      </div>
-    );
+    return <Load />;
   }
   return (
     <Container

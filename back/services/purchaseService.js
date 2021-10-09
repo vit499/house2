@@ -72,7 +72,7 @@ class PurchaseService {
     // const p2 = await Purchase.findOne({ where: { id } });
     // const p3 = { ...p2, ...p1 };
 
-    const p3 = await Purchase.update(
+    const c = await Purchase.update(
       { name, price, needId, freqId, tags },
       {
         where: {
@@ -80,9 +80,12 @@ class PurchaseService {
         },
       }
     );
+    const p3 = await Purchase.findOne({
+      where: { id },
+    });
 
     console.log("p3", JSON.stringify(p3, null, 2));
-    console.log("p3", p3.rows[0]);
+    // console.log("p3", p3.rows[0]);
     return p3;
   }
 

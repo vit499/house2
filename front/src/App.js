@@ -1,9 +1,9 @@
 import "./App.scss";
-import { BrowserRouter, useHistory } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/NavBar";
 import { observer } from "mobx-react-lite";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from ".";
 // import { checkAuth } from "./http/userApi";
 import Load from "./components/Load";
@@ -14,12 +14,14 @@ const App = observer(() => {
   // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("useEffect app userStore");
     userStore.auth();
-  }, []);
+  }, [userStore]);
 
   useEffect(() => {
+    console.log("useEffect app markStore");
     markStore.fetchMark();
-  }, []);
+  }, [markStore]);
 
   if (userStore.load || markStore.load) {
     return <Load />;

@@ -10,7 +10,7 @@ router.get("/", purchaseController.getAll);
 
 router.get("/:id", purchaseController.getOne);
 
-router.put("/", purchaseController.update);
+router.put("/:id", purchaseController.update);
 
 router.delete("/:id", purchaseController.delete);
 

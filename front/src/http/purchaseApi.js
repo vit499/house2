@@ -1,4 +1,4 @@
-import { $authHost, $host } from "./index";
+// import { $authHost, $host } from "./index";
 
 // const createFreq = async (freq) => {
 //   try {
@@ -48,10 +48,10 @@ import { $authHost, $host } from "./index";
 //   return data;
 // };
 
-const createPurchase = async (purchase) => {
-  const { data } = await $authHost.post("api/purchase", purchase);
-  return data;
-};
+// const createPurchase = async (purchase) => {
+//   const { data } = await $authHost.post("api/purchase", purchase);
+//   return data;
+// };
 
 // const fetchPurchases = async (freqId, needId, page, limit) => {
 //   console.log("[get] fetchPurchases");
@@ -68,23 +68,23 @@ const createPurchase = async (purchase) => {
 //   } catch (err) {}
 // };
 
-const fetchOnePurchase = async (id) => {
-  console.log("[get] fetchOnePurchase");
-  try {
-    const { data } = await $host.get(`api/purchase/${id}`, {});
-    console.log("one", JSON.stringify(data, null, 2));
-    return data;
-  } catch (err) {}
-};
+// const fetchOnePurchase = async (id) => {
+//   console.log("[get] fetchOnePurchase");
+//   try {
+//     const { data } = await $host.get(`api/purchase/${id}`);
+//     console.log("one", JSON.stringify(data, null, 2));
+//     return data;
+//   } catch (err) {}
+// };
 
-export {
-  // createFreq,
-  // fetchFreqs,
-  // createNeed,
-  // fetchNeeds,
-  // createTag,
-  // fetchAllTags,
-  createPurchase,
-  // fetchPurchases,
-  fetchOnePurchase,
-};
+// export {
+//   // createFreq,
+//   // fetchFreqs,
+//   // createNeed,
+//   // fetchNeeds,
+//   // createTag,
+//   // fetchAllTags,
+//   // createPurchase,
+//   // fetchPurchases,
+//   // fetchOnePurchase,
+// };

@@ -32,10 +32,10 @@ const NavBar = observer(() => {
         </NavLink>
         <NavLink
           to={ADD_PURCHASE_ROUTE}
-          style={{ color: "white" }}
-          className="ml-2"
+          style={{ color: "white", fontSize: "24px" }}
+          className="ml-3"
         >
-          Добавить
+          +
         </NavLink>
         <Nav className="ml-auto">
           {userStore.data && (
