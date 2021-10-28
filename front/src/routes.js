@@ -1,44 +1,66 @@
-import Admin from "./pages/Admin";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Shop from "./pages/Home";
 import {
   ADMIN_ROUTE,
-  PURCHASE_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   HOME_ROUTE,
-  ADD_PURCHASE_ROUTE,
+  PURLIST_ROUTE,
+  ADDPUR_ROUTE,
+  EDITPUR_ROUTE,
+  EDIT_TAGS_ROUTE,
+  EDIT_NEEDS_ROUTE,
+  EDIT_FREQS_ROUTE,
 } from "./utils/const";
+import HomePage from "./pages/HomePage/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import AdminPage from "./pages/AdminPage";
+import PurListPage from "./pages/PurListPage";
 import AddPurPage from "./pages/AddPurPage";
-import PurPage from "./pages/PurPage";
+import EditPurPage from "./pages/EditPurPage";
+import EditTags from "./components/AdminComp/EditTags";
 
 export const authRoutes = [
   {
     path: ADMIN_ROUTE,
-    Component: Admin,
-  },
-  {
-    path: ADD_PURCHASE_ROUTE,
-    Component: AddPurPage,
+    Component: AdminPage,
   },
 ];
 
 export const publicRoutes = [
   {
     path: HOME_ROUTE,
-    Component: Shop,
+    Component: HomePage,
   },
   {
     path: LOGIN_ROUTE,
-    Component: Login,
+    Component: LoginPage,
   },
   {
     path: REGISTER_ROUTE,
-    Component: Register,
+    Component: RegisterPage,
   },
   {
-    path: PURCHASE_ROUTE + "/:id",
-    Component: PurPage,
+    path: PURLIST_ROUTE,
+    Component: PurListPage,
+  },
+  {
+    path: ADDPUR_ROUTE,
+    Component: AddPurPage,
+  },
+  {
+    path: EDITPUR_ROUTE + "/:id",
+    Component: EditPurPage,
+  },
+  {
+    path: EDIT_TAGS_ROUTE,
+    Component: EditTags,
+  },
+  {
+    path: EDIT_NEEDS_ROUTE,
+    Component: EditTags,
+  },
+  {
+    path: EDIT_FREQS_ROUTE,
+    Component: EditTags,
   },
 ];

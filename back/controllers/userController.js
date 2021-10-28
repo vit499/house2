@@ -16,7 +16,7 @@ const genJwt = (id, email, username, role) => {
 
 class UserController {
   async registration(req, res, next) {
-    console.log("register", req.body);
+    // console.log("register", req.body);
     try {
       const { email, password, username } = req.body;
       // let { role } = req.body;
@@ -25,7 +25,11 @@ class UserController {
       }
       const isExistEmail = await User.findOne({ where: { email } });
       if (isExistEmail) {
-        return next(ApiError.badRequest("already exist"));
+        return next(ApiError.badRequest("Такая почта уже есть"));
+      }
+      const isExistUser = await User.findOne({ where: { username } });
+      if (isExistUser) {
+        return next(ApiError.badRequest("Такое имя уже есть"));
       }
       const countUsers = await User.count();
       // console.log("countUser", countUsers);
@@ -47,7 +51,7 @@ class UserController {
   }
 
   async login(req, res, next) {
-    console.log("login", req.body);
+    // console.log("login", req.body);
     setTimeout(async () => {
       try {
         const { email, password } = req.body;
@@ -56,11 +60,11 @@ class UserController {
         }
         const user = await User.findOne({ where: { email } });
         if (!user) {
-          return next(ApiError.badRequest("wrong email"));
+          return next(ApiError.badRequest("Нет такой почты"));
         }
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) {
-          return next(ApiError.badRequest("wrong pass"));
+          return next(ApiError.badRequest("Нет такой почты или пароля"));
         }
         const token = genJwt(user.id, user.email, user.username, user.role);
         return res.json({ token });
@@ -71,7 +75,7 @@ class UserController {
   }
 
   async auth(req, res, next) {
-    console.log("auth", req.user);
+    // console.log("auth", req.user);
     setTimeout(() => {
       const { id, email, username, role } = req.user;
       if (!id) {
@@ -84,7 +88,7 @@ class UserController {
 
   //
   async dropDb(req, res) {
-    console.log("drop db");
+    // console.log("drop db");
     // await DropDb();
     await sequelize.drop();
     await sequelize.sync({ force: true });

@@ -1,20 +1,29 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../db");
 
-const User = sequelize.define("user", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  username: { type: DataTypes.STRING, unique: true },
-  email: { type: DataTypes.STRING, unique: true },
-  password: { type: DataTypes.STRING },
-  role: { type: DataTypes.STRING, defaultValue: "USER" },
-});
+const User = sequelize.define(
+  "user",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    username: { type: DataTypes.STRING, unique: true },
+    email: { type: DataTypes.STRING, unique: true },
+    password: { type: DataTypes.STRING },
+    role: { type: DataTypes.STRING, defaultValue: "USER" },
+  },
+  { timestamps: false }
+);
 
-const Purchase = sequelize.define("purchase", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, allowNull: false },
-  price: { type: DataTypes.INTEGER, allowNull: false },
-  tags: { type: DataTypes.STRING },
-});
+const Purchase = sequelize.define(
+  "purchase",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, allowNull: false },
+    price: { type: DataTypes.INTEGER, allowNull: false },
+    tags: { type: DataTypes.STRING },
+    date: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+  },
+  { timestamps: false }
+);
 
 const Tag = sequelize.define(
   "tag",

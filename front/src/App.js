@@ -1,17 +1,19 @@
-import "./App.scss";
-import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./components/AppRouter";
-import NavBar from "./components/NavBar";
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { Context } from ".";
-// import { checkAuth } from "./http/userApi";
+import AppRouter from "./components/AppRouter";
+import FooterComp from "./components/FooterComp";
 import Load from "./components/Load";
-// import { fetchAllTags, fetchFreqs, fetchNeeds } from "./http/purchaseApi";
+import TopBar from "./components/TopBar/TopBar";
 
 const App = observer(() => {
-  const { userStore, markStore } = useContext(Context);
-  // const [loading, setLoading] = useState(true);
+  const { markStore, purStore, userStore } = useContext(Context);
+
+  useEffect(() => {
+    console.log("app init");
+    markStore.Init(purStore);
+  }, [markStore, purStore]);
 
   useEffect(() => {
     console.log("useEffect app userStore");
@@ -23,14 +25,13 @@ const App = observer(() => {
     markStore.fetchMark();
   }, [markStore]);
 
-  if (userStore.load || markStore.load) {
+  if (userStore.loadApp === "load" || markStore.load === "load") {
     return <Load />;
   }
   console.log("app isAuth", userStore.isAuth);
-
   return (
     <BrowserRouter>
-      <NavBar />
+      <TopBar />
       <AppRouter />
     </BrowserRouter>
   );

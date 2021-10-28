@@ -5,7 +5,7 @@ const ApiError = require("../error/ApiError");
 class FreqController {
   async create(req, res, next) {
     try {
-      console.log("Freq", req.body);
+      // console.log("Freq", req.body);
       const { name } = req.body;
       if (!name) {
         return next(ApiError.badRequest("no name"));
@@ -19,7 +19,7 @@ class FreqController {
   }
 
   async delete(req, res, next) {
-    console.log("Freq del", req.params);
+    // console.log("Freq del", req.params);
     try {
       const { id } = req.params;
       if (!id) {

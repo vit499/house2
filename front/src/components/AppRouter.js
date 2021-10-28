@@ -7,7 +7,7 @@ import { HOME_ROUTE } from "../utils/const";
 
 const AppRouter = observer(() => {
   const { userStore } = useContext(Context);
-  // console.log("userStore", userStore);
+  console.log("isAuth", userStore.isAuth);
   return (
     <Switch>
       {userStore.isAuth &&

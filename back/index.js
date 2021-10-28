@@ -4,7 +4,8 @@ require("dotenv").config();
 const sequelize = require("./db");
 const router = require("./routes");
 const errorHandler = require("./middleware/errorHandlingMiddleware");
-const { fillPurchases } = require("./models/fillPurchases");
+const { fillPurs } = require("./models/fillData");
+const { checkEmpty } = require("./models/fillTags");
 
 const API_PORT = process.env.API_PORT || 3010;
 
@@ -26,7 +27,11 @@ const start = async () => {
     app.listen(API_PORT, () => {
       console.log(`app listen on port ${API_PORT}`);
 
-      if (updateDb !== 0) fillPurchases();
+      if (updateDb === 2) {
+        fillPurs();
+        // fillPurchases();
+      }
+      checkEmpty();
     });
   } catch (err) {
     console.log("err", err);

@@ -1,0 +1,17 @@
+.site-page-header {
+  border: 1px solid rgb(235, 237, 240);
+  background-color: lightgray;
+}
+
+.mbutton {
+  background-color: aqua;
+}
+
+.icons-list > .anticon {
+  margin-right: 6px;
+  font-size: 24px;
+}
+.ant-row-rtl .icons-list > .anticon {
+  margin-right: 0;
+  margin-left: 6px;
+}

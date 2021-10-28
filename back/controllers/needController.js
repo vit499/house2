@@ -15,7 +15,7 @@ class NeedController {
 
   async create(req, res, next) {
     try {
-      console.log("Need", req.body);
+      // console.log("Need", req.body);
       const { name } = req.body;
       if (!name) {
         return next(ApiError.badRequest("no name"));
@@ -29,7 +29,7 @@ class NeedController {
   }
 
   async delete(req, res, next) {
-    console.log("Need del", req.params);
+    // console.log("Need del", req.params);
     try {
       const { id } = req.params;
       if (!id) {

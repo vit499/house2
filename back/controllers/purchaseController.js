@@ -6,7 +6,7 @@ const purchaseService = require("../services/purchaseService");
 
 class PurchaseController {
   async create(req, res, next) {
-    console.log("create Purchase", req.body);
+    // console.log("create Purchase", req.body);
     try {
       const purchase = purchaseService.savePurchase(req);
 
@@ -17,7 +17,7 @@ class PurchaseController {
   }
 
   async getAll(req, res, next) {
-    console.log("get Purchase", req.query);
+    // console.log("get Purchase", req.query);
     setTimeout(async () => {
       try {
         const purchases = await purchaseService.getAll(req);
@@ -36,7 +36,7 @@ class PurchaseController {
   }
 
   async getOne(req, res, next) {
-    console.log("get one purchase");
+    // console.log("get one purchase");
     setTimeout(async () => {
       try {
         const { id } = req.params;
@@ -52,13 +52,13 @@ class PurchaseController {
   }
 
   async update(req, res, next) {
-    console.log("update purchase", req.body);
+    // console.log("update purchase", req.body);
     try {
       const { id } = req.params;
       if (!id) {
         return next(ApiError.badRequest("no purchase id"));
       }
-      const purchase = purchaseService.updateOne(req);
+      const purchase = purchaseService.updateOne(id, req);
 
       return res.json(purchase);
     } catch (err) {
@@ -67,7 +67,7 @@ class PurchaseController {
   }
 
   async delete(req, res, next) {
-    console.log("delete purchase", req.params);
+    // console.log("delete purchase", req.params);
     try {
       const { id } = req.params;
       if (!id) {

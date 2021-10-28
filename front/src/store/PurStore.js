@@ -1,125 +1,106 @@
-import { flow, makeAutoObservable, runInAction } from "mobx";
-import { $authHost } from "../http";
-import { fetchOnePurchase } from "../http/purchaseApi";
+import { makeAutoObservable, runInAction } from "mobx";
+import http from "../http";
 
-export default class PurStore {
-  load = "none";
-  Pur = {
-    name: "",
-    price: 0,
-    needId: 3,
-    freqId: 1,
+class PurStore {
+  filterObject = {
+    need: 0,
+    freq: 0,
     tags: [],
   };
   constructor() {
-    makeAutoObservable(this, {
-      fetchPur: flow,
-      updatePur: flow,
+    this._needReq = true;
+    this._pursAll = []; // formData();
+    this._purs = [];
+    this._filterNeed = 0;
+    this._filterFreq = 0;
+    this._filterTags = [];
+    //this.filterPurs();
+    makeAutoObservable(this, {});
+  }
+
+  // www(str) {
+  //   return (arr = ["q", "e", "r", "s"].every((e) => str.includes(e)));
+  // }
+
+  filterPurs() {
+    // let cnt = 0;
+    // console.log("filter, need, freq", this._filterNeed, this._filterFreq);
+    const p1 = this._pursAll.filter((p) => {
+      // cnt++;
+      const f0 = this._filterTags.length === 0;
+      let f1 = true;
+      if (!f0) {
+        f1 = this._filterTags.every((t) => {
+          // if (cnt < 10) {
+          //   console.log("filterTags", cnt, t);
+          //   const a = p.tags.includes(t);
+          //   console.log("p.tags", p.tags, a);
+          // }
+          return p.tags.includes(t);
+        });
+      }
+      const f2 = this._filterNeed === 0 || p.needId === this._filterNeed;
+      const f3 = this._filterFreq === 0 || p.freqId === this._filterFreq;
+      return f1 && f2 && f3;
     });
+    // cnt = 0;
+    // for (let i = 0; i < 10; i++) {
+    //   if (p1.lenght < i) break;
+    //   console.log("p ", JSON.stringify(p1[i], null, 2));
+    // }
+    this._purs = p1;
+  }
+  // setFilterTags(tags) {
+  //   this._filterTags = tags;
+  //   this.filterPurs();
+  // }
+  // setFilterNeed(id) {
+  //   if (!id) id = 0;
+  //   this._filterNeed = id;
+  //   this.filterPurs();
+  // }
+  // setFilterFreq(id) {
+  //   if (!id) id = 0;
+  //   this._filterFreq = id;
+  //   this.filterPurs();
+  // }
+  setFilters(need, freq, tags) {
+    this._filterTags = tags;
+    if (!need) need = 0;
+    this._filterNeed = need;
+    if (!freq) freq = 0;
+    this._filterFreq = freq;
+    this.filterPurs();
+  }
+  get Purs() {
+    return this._purs;
   }
 
-  initPur() {
-    this.Pur.name = "";
-    this.Pur.price = 0;
-    this.Pur.needId = 3;
-    this.Pur.freqId = 1;
-    this.Pur.tags = [];
+  setNeedReq(en) {
+    this._needReq = en;
   }
-  setName(name) {
-    this.Pur.name = name;
-  }
-  get name() {
-    return this.Pur.name;
-  }
-  setPrice(price) {
-    this.Pur.price = price;
-  }
-  get price() {
-    return this.Pur.price;
-  }
-  setNeedId(needId) {
-    this.Pur.needId = needId;
-  }
-  get needId() {
-    return this.Pur.needId;
-  }
-  setFreqId(freqId) {
-    this.Pur.freqId = freqId;
-  }
-  get freqId() {
-    return this.Pur.freqId;
-  }
-  setTags(tags) {
-    this.Pur.tags = tags;
-  }
-  get tags() {
-    return this.Pur.tags;
+  get needReq() {
+    return this._needReq;
   }
 
-  async createPur() {
-    this.load = "load";
-    console.log("create pur", this.Pur);
-    const tags = this.Pur.tags.join(" ");
-    const purchase = { ...this.Pur, tags: tags };
-    console.log("create purchase", purchase);
+  async fetchPurchases(freqId, needId, page, limit) {
+    this._load = "load";
+    console.log("[get] fetchPurchases");
     try {
-      const purchases = await $authHost.post("api/purchase", purchase);
+      const { data } = await http.Purchase.fetch(freqId, needId);
       runInAction(() => {
-        console.log("get purs", purchases.data);
-        this.load = "done";
+        console.log("store purchases", data.count);
+        this._pursAll = data.rows;
+        this.filterPurs();
+        //this._totalCount = data.count;
+        this._load = "done";
       });
     } catch (err) {
       runInAction(() => {
-        this.load = "err";
-      });
-    }
-  }
-  *fetchPur(id) {
-    this.initPur();
-    this.load = "load";
-    try {
-      // Yield instead of await.
-      const p = yield fetchOnePurchase(id);
-      const pur = { ...p, tags: p.tags.split(" ") };
-      this.load = "done";
-      console.log("flow pur", pur);
-      this.Pur = pur;
-    } catch (error) {
-      this.load = "err";
-    }
-  }
-  *updatePur(id) {
-    this.load = "load";
-    console.log("update purchase", this.Pur);
-    const tags = this.Pur.tags.join(" ");
-    const purchase = { ...this.Pur, tags: tags };
-    try {
-      const purchases = yield $authHost.put(`api/purchase/${id}`, purchase);
-      runInAction(() => {
-        console.log("get pur", purchases.data);
-        // this._needs = needs.data;
-        this.load = "done";
-      });
-    } catch (err) {
-      runInAction(() => {
-        this.load = "err";
-      });
-    }
-  }
-  async deletePur(id) {
-    this.load = "load";
-    console.log("del purchase", id);
-    try {
-      const purchases = await $authHost.delete(`api/purchase/${id}`);
-      runInAction(() => {
-        console.log("get purs", purchases.data);
-        // this._needs = needs.data;
-        this.load = "done";
-      });
-    } catch (err) {
-      runInAction(() => {
-        this.load = "err";
+        this._load = "err";
       });
     }
   }
 }
+
+export default PurStore;

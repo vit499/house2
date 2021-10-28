@@ -1,183 +1,137 @@
+import { Button, Col, Input, Row, Form, InputNumber, DatePicker } from "antd";
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "..";
+import "moment/locale/ru";
+import locale from "antd/es/date-picker/locale/ru_RU";
+import FreqsAddComp from "./markcomp/FreqsAddComp";
+import NeedsAddComp from "./markcomp/NeedsAddComp";
+import TagsAddComp from "./markcomp/TagsAddComp";
+import moment from "moment";
 
-const Pur = observer(({ showDel, handleSubmit, handleCancel, handleDel }) => {
-  const { markStore, purStore } = useContext(Context);
+const Pur = observer(
+  ({ showDel, handleSubmit, handleCancel, handleDelete }) => {
+    const { onePurStore, purStore } = useContext(Context);
+    // const [name, setName] = useState("");
+    // const [price, setPrice] = useState(0);
 
-  if (!purStore.Pur) {
-    console.log("no pur");
-    return <div>no Pur</div>;
-  }
-  const changeName = (e) => {
-    const name = e.target.value;
-    purStore.setName(name);
-  };
-  const changePrice = (e) => {
-    let n = Number(e.target.value);
-    let price;
-    if (isNaN(n)) price = 0;
-    else price = n;
-    purStore.setPrice(price);
-  };
-  const changeTag = (e) => {
-    const tag = e.target.value;
-    let tags;
-    if (purStore.Pur.tags.includes(tag)) {
-      tags = purStore.Pur.tags.filter((t) => t !== tag);
-    } else {
-      tags = [...purStore.Pur.tags, tag];
-    }
-    purStore.setTags(tags);
-  };
-  const changeNeed = (e) => {
-    const needId = Number(e.target.id);
-    console.log("change need", needId);
-    purStore.setNeedId(needId);
-  };
-  const changeFreq = (e) => {
-    const freqId = Number(e.target.id);
-    console.log("change need", freqId);
-    purStore.setFreqId(freqId);
-  };
+    const hChangeName = (e) => {
+      const n = e.target.value;
+      onePurStore.setName(n);
+    };
+    const hChangePrice = (e) => {
+      const n = e.target.value;
+      const x = onePurStore.price.toString();
+      if (n.length > x.length) {
+        const a = n.substring(x.length);
+        if (isNaN(a)) return;
+      }
+      let p = Number(n);
+      if (isNaN(p)) p = 0;
+      onePurStore.setPrice(p);
+    };
+    const hChangeDate = (date, dateString) => {
+      if (!date) return;
+      onePurStore.setDate(moment(date).toISOString());
+    };
+    const dateFormat = "YYYY/MM/DD";
 
-  return (
-    <div>
-      <Container>
+    useEffect(() => {
+      // setName(onePurStore.name);
+      // setPrice(onePurStore.price);
+    }, []);
+    // console.log("pur", JSON.stringify(onePurStore.tags, null, 2));
+
+    return (
+      <div style={{ margin: "2rem 1rem 1rem 1rem" }}>
         <Row>
-          <Col lg="6">
+          <Col
+            xs={{ span: 24, offset: 0 }}
+            sm={{ span: 20, offset: 2 }}
+            md={{ span: 16, offset: 4 }}
+            lg={{ span: 12, offset: 6 }}
+            style={{ border: "1px solid #91d5ff" }}
+          >
+            <p style={{ textAlign: "center", marginBottom: "1rem" }}>Покупка</p>
             <Form
-              onSubmit={handleSubmit}
-              style={{
-                border: "1px solid #cccccc",
-                marginTop: "1rem",
-              }}
+              onFinish={handleSubmit}
+              autoComplete="off"
+              style={{ margin: "1rem" }}
             >
-              <Form.Group
-                style={{
-                  margin: "0.5rem",
-                }}
-              >
-                <Form.Control
-                  value={purStore.Pur.name}
-                  onChange={(e) => changeName(e)}
-                  className="mb-2"
-                  placeholder="покупка"
-                />
-                <Form.Control
-                  value={purStore.Pur.price}
-                  onChange={(e) => changePrice(e)}
-                  className=""
-                  placeholder="цена"
-                />
-              </Form.Group>
+              <Input
+                placeholder="Товар"
+                value={onePurStore.name}
+                onChange={hChangeName}
+                style={{ marginBottom: "1rem" }}
+              />
 
-              <Form.Group
-                as={Row}
-                className="mb-3"
+              <Input
+                placeholder="Цена"
+                value={onePurStore.price}
+                onChange={hChangePrice}
                 style={{
-                  border: "1px solid #cccccc",
-                  margin: "0.5rem",
+                  width: "100%",
+                  marginBottom: "1rem",
                 }}
-              >
-                {markStore.tags.map((allTag) => (
-                  <Col sm="6" lg="3" key={allTag.id}>
-                    <div key={allTag.id} className="mb-1">
-                      <Form.Check
-                        type="checkbox"
-                        label={allTag.name}
-                        value={allTag.name}
-                        onChange={(e) => changeTag(e)}
-                        checked={purStore.Pur.tags.includes(allTag.name)}
-                      />
-                    </div>
-                  </Col>
-                ))}
-              </Form.Group>
-              <Form.Group
-                as={Row}
-                style={{
-                  border: "1px solid #cccccc",
-                  margin: "0.5rem",
-                }}
-              >
-                <Col
-                  style={{
-                    border: "1px solid #cccccc",
-                    marginRight: "0.5rem",
-                  }}
-                >
-                  <p>Необходимость</p>
-                  {markStore.needs.map((need) => (
-                    <div key={need.id} className="mb-1">
-                      <Form.Check
-                        type="radio"
-                        id={need.id}
-                        label={need.name}
-                        value={need.name}
-                        checked={need.id === purStore.Pur.needId}
-                        onChange={changeNeed}
-                      />
-                    </div>
-                  ))}
+              />
+
+              <TagsAddComp />
+              <Row style={{ marginTop: ".5rem" }}>
+                <Col span={11} style={{ border: "1px solid #91d5ff" }}>
+                  <NeedsAddComp />
                 </Col>
                 <Col
-                  style={{
-                    border: "1px solid #cccccc",
-                    // margin: "0.5rem",
-                  }}
+                  span={12}
+                  offset={1}
+                  style={{ border: "1px solid #91d5ff" }}
                 >
-                  <p>Частота</p>
-                  {markStore.freqs &&
-                    markStore.freqs.map((freq) => (
-                      <div key={freq.id} className="mb-1">
-                        <Form.Check
-                          type="radio"
-                          id={freq.id}
-                          label={freq.name}
-                          value={freq.name}
-                          checked={freq.id === purStore.Pur.freqId}
-                          onChange={changeFreq}
-                        />
-                      </div>
-                    ))}
+                  <FreqsAddComp />
                 </Col>
-              </Form.Group>
+              </Row>
+              <Row style={{ marginTop: ".5rem" }}>
+                <DatePicker
+                  locale={locale}
+                  value={moment(onePurStore.date, dateFormat)}
+                  format={dateFormat}
+                  onChange={hChangeDate}
+                />
+              </Row>
 
-              <Form.Group as={Row} className="mt-3 mb-2 mr-2">
-                <div className="ml-auto">
-                  <Button
-                    className="mr-3"
-                    variant="link"
-                    onClick={handleCancel}
-                  >
-                    Отмена
-                  </Button>
-                  <Button
-                    className="mr-3"
-                    variant="link"
-                    type="submit"
-                    onClick={(e) => {
-                      handleSubmit(e);
-                    }}
-                  >
-                    Сохранить
-                  </Button>
-                  {showDel && (
-                    <Button className="mr-2" variant="link" onClick={handleDel}>
-                      Удалить
+              <Row style={{ justifyContent: "flex-end", marginTop: "2rem" }}>
+                <Col style={{ marginRight: "2rem" }}>
+                  <Form.Item>
+                    <Button type="default" onClick={handleCancel}>
+                      Отмена
                     </Button>
-                  )}
-                </div>
-              </Form.Group>
+                  </Form.Item>
+                </Col>
+                <Col style={{ marginRight: "2rem" }}>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      loading={purStore.load === "load"}
+                    >
+                      Сохранить
+                    </Button>
+                  </Form.Item>
+                </Col>
+                {showDel && (
+                  <Col style={{ marginRight: "2rem" }}>
+                    <Form.Item>
+                      <Button danger onClick={handleDelete}>
+                        Удалить
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                )}
+              </Row>
             </Form>
           </Col>
-          <Col lg="6"></Col>
         </Row>
-      </Container>
-    </div>
-  );
-});
+      </div>
+    );
+  }
+);
 
 export default Pur;
