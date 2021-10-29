@@ -34,6 +34,7 @@ const User = {
       password,
     }),
   auth: async () => await $authHost.get("api/user/auth", {}),
+  dropDb: async () => await $authHost.get("api/user/dropdb", {}),
 };
 const Mark = {
   fetch: async () => await $host.get("api/tag", {}),

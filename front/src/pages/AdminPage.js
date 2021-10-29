@@ -1,11 +1,16 @@
 import { Button, Col, Row, Typography } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import { EDIT_TAGS_ROUTE } from "../utils/const";
+import { Context } from "..";
 
 const AdminPage = () => {
+  const { userStore } = useContext(Context);
   const history = useHistory();
 
+  const handleDrop = () => {
+    userStore.dropDb();
+  };
   return (
     <Row>
       <Col
@@ -40,6 +45,13 @@ const AdminPage = () => {
           onClick={() => history.push(EDIT_TAGS_ROUTE)}
         >
           Добавить freq
+        </Button>
+        <Button
+          type="default"
+          style={{ width: "100%", margin: ".5rem" }}
+          onClick={handleDrop}
+        >
+          Очистить базу
         </Button>
       </Col>
     </Row>

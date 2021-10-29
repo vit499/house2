@@ -5,6 +5,7 @@ const { User } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const { secret } = require("../config/index");
 const sequelize = require("../db");
+const { checkEmpty } = require("../models/fillTags");
 
 const genJwt = (id, email, username, role) => {
   // console.log("sec", secret);
@@ -92,6 +93,7 @@ class UserController {
     // await DropDb();
     await sequelize.drop();
     await sequelize.sync({ force: true });
+    await checkEmpty();
     const ans = { message: "drop ok" };
     return res.json(ans);
   }

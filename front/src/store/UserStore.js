@@ -118,4 +118,15 @@ export default class UserStore {
     this._user = null;
     this._isAuth = false;
   }
+
+  async dropDb() {
+    try {
+      console.log("[get] dropdb");
+      const { data } = await http.User.dropDb();
+      console.log("drop", data);
+      return data;
+    } catch (err) {
+      // console.log("check auth err", err);
+    }
+  }
 }
