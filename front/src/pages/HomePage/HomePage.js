@@ -20,8 +20,8 @@ const HomePage = observer(() => {
   return (
     <Row>
       <Col
-        xs={{ span: 12, offset: 0 }}
-        sm={{ span: 12, offset: 0 }}
+        xs={{ span: 24, offset: 0 }}
+        sm={{ span: 24, offset: 0 }}
         md={{ span: 12, offset: 0 }}
         lg={{ span: 10, offset: 4 }}
         // style={{ backgroundColor: "lightGray" }}
@@ -33,21 +33,21 @@ const HomePage = observer(() => {
           className="d-flex align-items-center justify-content-center"
           style={{
             background: `url(${foto}) no-repeat center center`,
-            width: "100%",
-            height: "60vh",
-            backgroundSize: "cover",
+            //width: "100%",
+            height: "80vh",
+            backgroundSize: "contain",
             fontSize: 64,
           }}
         ></div>
       </Col>
       <Col
-        xs={{ span: 12, offset: 0 }}
-        sm={{ span: 12, offset: 0 }}
+        xs={{ span: 24, offset: 0 }}
+        sm={{ span: 24, offset: 0 }}
         md={{ span: 12, offset: 0 }}
         lg={{ span: 6, offset: 0 }}
       >
         <Typography.Title level={4} style={{ textAlign: "center" }}>
-          да
+          Му-му
         </Typography.Title>
       </Col>
     </Row>

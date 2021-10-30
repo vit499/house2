@@ -1,4 +1,4 @@
-.site-page-header {
+/* .site-page-header {
   border: 1px solid rgb(235, 237, 240);
   background-color: lightgray;
 }
@@ -14,4 +14,16 @@
 .ant-row-rtl .icons-list > .anticon {
   margin-right: 0;
   margin-left: 6px;
+} */
+
+.topbar2-item {
+  color: #f0f0f0;
+  margin-right: 1rem;
+  cursor: pointer;
+  font-size: 16px;
+}
+.material-icons {
+  display: inline-flex;
+  vertical-align: top;
+  margin-top: 2px;
 }

@@ -5,7 +5,7 @@ import { Context } from ".";
 import AppRouter from "./components/AppRouter";
 import FooterComp from "./components/FooterComp";
 import Load from "./components/Load";
-import TopBar from "./components/TopBar/TopBar";
+import TopBar2 from "./components/TopBar/TopBar2";
 
 const App = observer(() => {
   const { markStore, purStore, userStore } = useContext(Context);
@@ -31,7 +31,7 @@ const App = observer(() => {
   console.log("app isAuth", userStore.isAuth);
   return (
     <BrowserRouter>
-      <TopBar />
+      <TopBar2 />
       <AppRouter />
     </BrowserRouter>
   );
