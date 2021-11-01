@@ -1,6 +1,6 @@
-import { Button } from "antd";
 import React, { useContext } from "react";
 import { useHistory } from "react-router";
+import { Input } from "antd";
 import { Context } from "../..";
 import {
   ADDPUR_ROUTE,
@@ -10,6 +10,7 @@ import {
   PURLIST_ROUTE,
 } from "../../utils/const";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 const TopBar2 = () => {
   const { userStore } = useContext(Context);
@@ -19,6 +20,12 @@ const TopBar2 = () => {
     userStore.logout();
     history.push(LOGIN_ROUTE);
   };
+  const handleAdd = () => {
+    console.log("add");
+    // history.push(ADDPUR_ROUTE);
+    history.push(ADDPUR_ROUTE);
+  };
+
   return (
     <div style={{ backgroundColor: "#20B2AA", minHeight: "4vh" }}>
       <div
@@ -29,6 +36,12 @@ const TopBar2 = () => {
           <span className="material-icons">house_siding</span>
           Главная
         </span>
+        <Input
+          placeholder="поиск"
+          //onSearch={onSearch}
+          bordered={false}
+          style={{ width: 200, color: "#f0f0f0" }}
+        />
         <span
           className="topbar2-item ms-auto"
           onClick={() => history.push(PURLIST_ROUTE)}
@@ -38,10 +51,7 @@ const TopBar2 = () => {
         </span>
 
         {userStore.isAuth && (
-          <span
-            className="topbar2-item"
-            onClick={() => history.push(ADDPUR_ROUTE)}
-          >
+          <span className="topbar2-item" onClick={handleAdd}>
             <span className="material-icons">add_circle_outline</span>
             Добавить
           </span>

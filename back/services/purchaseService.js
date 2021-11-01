@@ -58,7 +58,7 @@ class PurchaseService {
 
   async updateOne(id, req) {
     const { name, price, needId, freqId, tags, date } = req.body;
-    const p1 = { name, price, needId, freqId, tags, date };
+    // const p1 = { name, price, needId, freqId, tags, date };
     // console.log("p1", JSON.stringify(p1, null, 2));
 
     // const p2 = await Purchase.findOne({ where: { id } });

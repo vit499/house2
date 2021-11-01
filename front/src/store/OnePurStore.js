@@ -47,7 +47,7 @@ class OnePurStore {
     this._allTags = allTags;
   }
   setName(name) {
-    console.log("name", name);
+    // console.log("name", name);
     this._name = name;
   }
   setPrice(price) {
@@ -61,7 +61,7 @@ class OnePurStore {
   }
   setTag(id) {
     // id = Number(id);
-    console.log("set tag", id);
+    // console.log("set tag", id);
     this._allTags.forEach((t) => {
       if (t.id === id) {
         t.checked = !t.checked;

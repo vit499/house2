@@ -24,25 +24,6 @@ export const authRoutes = [
     path: ADMIN_ROUTE,
     Component: AdminPage,
   },
-];
-
-export const publicRoutes = [
-  {
-    path: HOME_ROUTE,
-    Component: HomePage,
-  },
-  {
-    path: LOGIN_ROUTE,
-    Component: LoginPage,
-  },
-  {
-    path: REGISTER_ROUTE,
-    Component: RegisterPage,
-  },
-  {
-    path: PURLIST_ROUTE,
-    Component: PurListPage,
-  },
   {
     path: ADDPUR_ROUTE,
     Component: AddPurPage,
@@ -62,5 +43,24 @@ export const publicRoutes = [
   {
     path: EDIT_FREQS_ROUTE,
     Component: EditTags,
+  },
+];
+
+export const publicRoutes = [
+  {
+    path: HOME_ROUTE,
+    Component: HomePage,
+  },
+  {
+    path: LOGIN_ROUTE,
+    Component: LoginPage,
+  },
+  {
+    path: REGISTER_ROUTE,
+    Component: RegisterPage,
+  },
+  {
+    path: PURLIST_ROUTE,
+    Component: PurListPage,
   },
 ];

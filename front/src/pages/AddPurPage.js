@@ -30,12 +30,12 @@ const AddPurPage = observer(() => {
   useEffect(() => {
     if (!isSubmitSave) return;
     // console.log("add pur");
-    onePurStore.createPur();
+    onePurStore.createPur().then(() => history.push(PURLIST_ROUTE));
   }, [isSubmitSave]);
 
-  if (onePurStore.load === "done") {
-    return <Redirect to={PURLIST_ROUTE} />;
-  }
+  // if (onePurStore.load === "done") {
+  //   return <Redirect to={PURLIST_ROUTE} />;
+  // }
   return (
     <div>
       <Pur

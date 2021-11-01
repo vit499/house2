@@ -43,7 +43,7 @@ const Mark = {
 const Purchase = {
   create: async (purchase) => await $authHost.post("api/purchase", purchase),
   update: async (id, purchase) =>
-    await $authHost.put(`api/purchase/${this._id}`, purchase),
+    await $authHost.put(`api/purchase/${id}`, purchase),
   delete: async (id) => await $authHost.delete(`api/purchase/${id}`),
   fetch: async (freqId, needId) =>
     await $host.get("api/purchase", {

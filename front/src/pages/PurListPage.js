@@ -10,7 +10,6 @@ import { useHistory } from "react-router";
 import { EDITPUR_ROUTE } from "../utils/const";
 import Load from "../components/Load";
 import Errors from "../components/Errors";
-import Dpick from "../components/datepickcomp/Dpick";
 import moment from "moment";
 import SelectDatePick from "../components/datepickcomp/SelectDatePick";
 
@@ -47,7 +46,7 @@ const PurListPage = observer(() => {
       purStore.setNeedReq(true);
       return;
     }
-    console.log("shop use effect2");
+    // console.log("shop use effect2");
     purStore.fetchPurchases(
       purStore.selectedFreqId !== 0 ? purStore.selectedFreqId : null,
       purStore.selectedNeedId !== 0 ? purStore.selectedNeedId : null
@@ -72,6 +71,7 @@ const PurListPage = observer(() => {
           lg={{ span: 12, offset: 6 }}
         >
           <SelectDatePick />
+          {` =${purStore.sum}руб`}
         </Col>
       </Row>
       <Row>

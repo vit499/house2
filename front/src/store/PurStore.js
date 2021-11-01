@@ -14,6 +14,8 @@ class PurStore {
     this._filterNeed = 0;
     this._filterFreq = 0;
     this._filterTags = [];
+    this._load = "none";
+    this._sum = 0;
     //this.filterPurs();
     makeAutoObservable(this, {});
   }
@@ -48,7 +50,10 @@ class PurStore {
     //   if (p1.lenght < i) break;
     //   console.log("p ", JSON.stringify(p1[i], null, 2));
     // }
+    const sum = p1.reduce((acc, p) => acc + p.price, 0);
+
     this._purs = p1;
+    this._sum = sum;
   }
   // setFilterTags(tags) {
   //   this._filterTags = tags;
@@ -81,6 +86,12 @@ class PurStore {
   }
   get needReq() {
     return this._needReq;
+  }
+  get load() {
+    return this._load;
+  }
+  get sum() {
+    return this._sum;
   }
 
   async fetchPurchases(freqId, needId, page, limit) {
