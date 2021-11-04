@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
-import { Context } from "../..";
 import Checkbox from "antd/lib/checkbox/Checkbox";
+import markStore from "../../store/MarkStore";
 
 const NeedsComp = observer(({ handle }) => {
-  const { markStore } = useContext(Context);
   return (
     <div
       style={{

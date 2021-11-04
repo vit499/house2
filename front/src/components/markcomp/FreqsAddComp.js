@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
-import { Context } from "../..";
 import Checkbox from "antd/lib/checkbox/Checkbox";
+import markStore from "../../store/MarkStore";
+import onePurStore from "../../store/OnePurStore";
 
 const FreqsAddComp = observer(() => {
-  const { markStore, onePurStore } = useContext(Context);
-
   const handle = (id) => {
     onePurStore.setFreqId(id);
   };

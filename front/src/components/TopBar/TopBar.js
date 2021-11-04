@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { Menu } from "antd";
 import {
@@ -17,10 +17,9 @@ import {
   LOGIN_ROUTE,
   PURLIST_ROUTE,
 } from "../../utils/const";
-import { Context } from "../..";
+import userStore from "../../store/UserStore";
 
 const TopBar = () => {
-  const { userStore } = useContext(Context);
   const history = useHistory();
 
   const logout = (e) => {

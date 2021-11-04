@@ -1,9 +1,8 @@
 import { AutoComplete, Col, Row } from "antd";
-import React, { useContext, useState } from "react";
-import { Context } from "..";
+import React, { useState } from "react";
+import purStore from "../store/PurStore";
 
 const Test = () => {
-  const { purStore } = useContext(Context);
   const [value, setValue] = useState("");
   const [options, setOptions] = useState([]);
 

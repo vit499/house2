@@ -1,9 +1,7 @@
 import { Col, Row, Typography } from "antd";
-import React, { useContext } from "react";
-import { Context } from "..";
+import userStore from "../store/UserStore";
 
 const Errors = () => {
-  const { userStore } = useContext(Context);
   return (
     <Row>
       <Col

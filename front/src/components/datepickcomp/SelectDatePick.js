@@ -23,7 +23,7 @@ const SelectDatePick = () => {
     setDate(d);
   }
   useEffect(() => {
-    console.log("date, type", date.toISOString(), type);
+    // console.log("date, type", date.toISOString(), type);
     dateStore.setDate(date, type);
   }, [type, date]);
 

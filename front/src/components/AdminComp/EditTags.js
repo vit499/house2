@@ -1,12 +1,11 @@
 import { Button, Col, Input, Row, Form } from "antd";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Context } from "../..";
 import { ADMIN_ROUTE } from "../../utils/const";
+import markStore from "../../store/MarkStore";
 
 const EditTags = observer(() => {
-  const { markStore } = useContext(Context);
   const [name, setName] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const history = useHistory();
@@ -21,6 +20,7 @@ const EditTags = observer(() => {
   useEffect(() => {
     if (!isSubmit) return;
     markStore.createTag(name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmit]);
   return (
     <div style={{ margin: "2rem 1rem 1rem 1rem" }}>

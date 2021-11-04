@@ -1,11 +1,10 @@
 import { Col, Row } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
-import { Context } from "../..";
+import React from "react";
+import markStore from "../../store/MarkStore";
 
 const TagsComp = observer(({ handle }) => {
-  const { markStore } = useContext(Context);
   return (
     <Row
       style={{

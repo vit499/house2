@@ -1,14 +1,13 @@
 import { Button, Input, Form, Col, Row, Typography } from "antd";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Redirect } from "react-router-dom";
-import { Context } from "..";
 import Errors from "../components/Errors";
 // import Load from "../components/Load";
 import { HOME_ROUTE, LOGIN_ROUTE } from "../utils/const";
+import userStore from "../store/UserStore";
 
 const RegisterPage = observer(() => {
-  const { userStore } = useContext(Context);
   // const history = useHistory();
   const [values, setValues] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -28,11 +27,11 @@ const RegisterPage = observer(() => {
     const { email, password, username } = values;
     userStore.register(email, password, username);
     setIsSubmit(false);
-  }, [isSubmit, userStore, values]);
+  }, [isSubmit, values]);
   useEffect(() => {
     console.log("reg clrLoad");
     userStore.clrLoad();
-  }, [userStore]);
+  }, []);
 
   if (userStore.isAuth) {
     return <Redirect to={HOME_ROUTE} />;

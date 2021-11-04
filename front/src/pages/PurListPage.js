@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Context } from "../index";
 // import "./style.css";
 import TagsComp from "../components/markcomp/TagsComp";
 import NeedsComp from "../components/markcomp/NeedsComp";
@@ -12,9 +11,11 @@ import Load from "../components/Load";
 import Errors from "../components/Errors";
 import moment from "moment";
 import SelectDatePick from "../components/datepickcomp/SelectDatePick";
+import markStore from "../store/MarkStore";
+import purStore from "../store/PurStore";
+import onePurStore from "../store/OnePurStore";
 
 const PurListPage = observer(() => {
-  const { purStore, markStore, onePurStore } = useContext(Context);
   const history = useHistory();
 
   const handleTag = (e) => {

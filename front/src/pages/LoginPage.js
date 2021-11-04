@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Input, Row, Typography } from "antd";
 // import Checkbox from "antd/lib/checkbox/Checkbox";
 import { NavLink, Redirect } from "react-router-dom";
 import { HOME_ROUTE, REGISTER_ROUTE } from "../utils/const";
-import { Context } from "..";
 // import Load from "../components/Load";
 import { observer } from "mobx-react-lite";
 import Errors from "../components/Errors";
+import userStore from "../store/UserStore";
 
 const LoginPage = observer(() => {
-  const { userStore } = useContext(Context);
   // const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,11 +27,11 @@ const LoginPage = observer(() => {
     // const { username, email, password } = values;
     userStore.login(email, password);
     setIsSubmit(false);
-  }, [isSubmit, userStore, email, password]);
+  }, [isSubmit, email, password]);
   useEffect(() => {
     console.log("login clrLoad");
     userStore.clrLoad();
-  }, [userStore]);
+  }, []);
 
   if (userStore.isAuth) {
     return <Redirect to={HOME_ROUTE} />;

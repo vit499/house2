@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 import { Input } from "antd";
-import { Context } from "../..";
 import {
   ADDPUR_ROUTE,
   ADMIN_ROUTE,
@@ -11,10 +10,9 @@ import {
   TEST_ROUTE,
 } from "../../utils/const";
 import "./style.css";
-import { Link } from "react-router-dom";
+import userStore from "../../store/UserStore";
 
 const TopBar2 = () => {
-  const { userStore } = useContext(Context);
   const history = useHistory();
 
   const logout = (e) => {

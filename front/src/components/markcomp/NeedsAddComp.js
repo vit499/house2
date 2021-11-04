@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Context } from "../..";
 import Checkbox from "antd/lib/checkbox/Checkbox";
+import markStore from "../../store/MarkStore";
+import onePurStore from "../../store/OnePurStore";
 
 const NeedsAddComp = observer(() => {
-  const { markStore, onePurStore } = useContext(Context);
 
   const handle = (id) => {
     onePurStore.setNeedId(id);

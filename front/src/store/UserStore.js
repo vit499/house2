@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 // import { $host, $authHost } from "../http";
 import http from "../http";
 
-export default class UserStore {
+class UserStore {
   constructor() {
     this._isAuth = false;
     this._load = "none";
@@ -43,7 +43,7 @@ export default class UserStore {
   async auth() {
     this._loadApp = "load";
     this._errors = null;
-    console.log("app checkAuth start");
+    // console.log("app checkAuth start");
     try {
       const { data } = await http.User.auth();
       if (data) {
@@ -130,3 +130,7 @@ export default class UserStore {
     }
   }
 }
+
+const userStore = new UserStore();
+
+export default userStore;

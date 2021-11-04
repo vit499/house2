@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 import "moment/locale/ru";

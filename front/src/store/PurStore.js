@@ -20,7 +20,6 @@ class PurStore {
     this._sum = 0;
     this._filterStartDay = 0;
     this._filterEndDay = 0;
-    //this.filterPurs();
     makeAutoObservable(this, {});
   }
 
@@ -33,11 +32,11 @@ class PurStore {
     // console.log("filter, need, freq", this._filterNeed, this._filterFreq);
     const startDay = dateStore.startDay;
     const endDay = dateStore.endDay;
-    console.log("s,e", startDay, endDay);
+    // console.log("s,e", startDay, endDay);
     const p1 = this._pursAll.filter((p) => {
       // cnt++;
-      console.log("date", p.date);
-      console.log("date", moment(p.date).format("x"));
+      // console.log("date", p.date);
+      // console.log("date", moment(p.date).format("x"));
       const f0 = this._filterTags.length === 0;
       let f1 = true;
       if (!f0) {
@@ -54,9 +53,9 @@ class PurStore {
       const f3 = this._filterFreq === 0 || p.freqId === this._filterFreq;
 
       const d = Number(moment(p.date).format("x"));
-      const f4 = startDay === 0 || d >= startDay;
-      const f5 = endDay === 0 || d <= endDay;
-      console.log("f4, f5", f4, f5);
+      const f4 = !startDay || d >= startDay;
+      const f5 = !endDay || d <= endDay;
+      // console.log("f4, f5", f4, f5);
       const f6 = f4 && f5;
       return f1 && f2 && f3 && f6;
     });
@@ -70,26 +69,15 @@ class PurStore {
     this._purs = p1;
     this._sum = sum;
   }
-  // setFilterTags(tags) {
-  //   this._filterTags = tags;
-  //   this.filterPurs();
-  // }
-  // setFilterNeed(id) {
-  //   if (!id) id = 0;
-  //   this._filterNeed = id;
-  //   this.filterPurs();
-  // }
-  // setFilterFreq(id) {
-  //   if (!id) id = 0;
-  //   this._filterFreq = id;
-  //   this.filterPurs();
-  // }
   setFilters(need, freq, tags) {
     this._filterTags = tags;
     if (!need) need = 0;
     this._filterNeed = need;
     if (!freq) freq = 0;
     this._filterFreq = freq;
+    this.filterPurs();
+  }
+  updFilters() {
     this.filterPurs();
   }
   get Purs() {
@@ -146,4 +134,6 @@ class PurStore {
   }
 }
 
-export default PurStore;
+const purStore = new PurStore();
+
+export default purStore;

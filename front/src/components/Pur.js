@@ -1,17 +1,17 @@
-import { Button, Col, Input, Row, Form, InputNumber, DatePicker } from "antd";
+import { Button, Col, Input, Row, Form, DatePicker } from "antd";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "..";
+import React, { useEffect } from "react";
 import "moment/locale/ru";
 import locale from "antd/es/date-picker/locale/ru_RU";
 import FreqsAddComp from "./markcomp/FreqsAddComp";
 import NeedsAddComp from "./markcomp/NeedsAddComp";
 import TagsAddComp from "./markcomp/TagsAddComp";
 import moment from "moment";
+import onePurStore from "../store/OnePurStore";
+import purStore from "../store/PurStore";
 
 const Pur = observer(
   ({ showDel, handleSubmit, handleCancel, handleDelete }) => {
-    const { onePurStore, purStore } = useContext(Context);
     // const [name, setName] = useState("");
     // const [price, setPrice] = useState(0);
 

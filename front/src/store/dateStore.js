@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import moment from "moment";
+import purStore from "./PurStore";
 
 class DateStore {
   constructor() {
@@ -11,15 +12,16 @@ class DateStore {
   setDate(value, type) {
     const a = moment(value).startOf(type).format("x");
     const b = moment(value).endOf(type).format("x");
-    //this.startDate = Number(a);
-    //this.endDate = Number(b);
-    console.log("start, end", a, b);
+    this._startDate = Number(a);
+    this._endDate = Number(b);
+    // console.log("start, end", a, b);
+    purStore.updFilters();
   }
   get startDay() {
-    return this._startDay;
+    return this._startDate;
   }
   get endDay() {
-    return this._endDay;
+    return this._endDate;
   }
 }
 

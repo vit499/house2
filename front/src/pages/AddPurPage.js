@@ -1,12 +1,13 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { Redirect, useHistory } from "react-router";
-import { Context } from "..";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import Pur from "../components/Pur";
 import { PURLIST_ROUTE } from "../utils/const";
+import markStore from "../store/MarkStore";
+import purStore from "../store/PurStore";
+import onePurStore from "../store/OnePurStore";
 
 const AddPurPage = observer(() => {
-  const { markStore, onePurStore, purStore } = useContext(Context);
   const [isSubmitSave, setIsSubmitSave] = useState(false);
   const history = useHistory();
 
@@ -31,6 +32,7 @@ const AddPurPage = observer(() => {
     if (!isSubmitSave) return;
     // console.log("add pur");
     onePurStore.createPur().then(() => history.push(PURLIST_ROUTE));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSave]);
 
   // if (onePurStore.load === "done") {

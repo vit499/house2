@@ -1,12 +1,11 @@
 import { Col, Row } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
-import { Context } from "../..";
+import React from "react";
+import markStore from "../../store/MarkStore";
+import onePurStore from "../../store/OnePurStore";
 
 const TagsAddComp = observer(() => {
-  const { markStore, onePurStore } = useContext(Context);
-
   const isTag = (tag) => {
     return onePurStore.tags.includes(tag.name);
   };

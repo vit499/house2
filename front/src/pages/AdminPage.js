@@ -1,11 +1,10 @@
 import { Button, Col, Row, Typography } from "antd";
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 import { EDIT_TAGS_ROUTE } from "../utils/const";
-import { Context } from "..";
+import userStore from "../store/UserStore";
 
 const AdminPage = () => {
-  const { userStore } = useContext(Context);
   const history = useHistory();
 
   const handleDrop = () => {

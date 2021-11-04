@@ -6,8 +6,6 @@ import foto from "../../assets/1.jpg";
 import "./style.css";
 
 const HomePage = observer(() => {
-  // const { purStore, markStore } = useContext(Context);
-
   // const handleTag = (e) => {
   //   markStore.setCheckTag(e.target.value, purStore);
   // };

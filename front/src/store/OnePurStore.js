@@ -166,4 +166,6 @@ class OnePurStore {
   }
 }
 
-export default OnePurStore;
+const onePurStore = new OnePurStore();
+
+export default onePurStore;

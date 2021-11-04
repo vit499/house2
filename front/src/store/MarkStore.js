@@ -65,7 +65,7 @@ class MarkStore {
     // purStore.setFilterTags(tags);
     // purStore.setFilterNeed(idNeed);
     // purStore.setFilterFreq(idFreq);
-    console.log("need, freq, tags", idNeed, idFreq, tags);
+    // console.log("need, freq, tags", idNeed, idFreq, tags);
     purStore.setFilters(idNeed, idFreq, tags);
   }
   setCheckTag(id, purStore) {
@@ -155,4 +155,6 @@ class MarkStore {
   }
 }
 
-export default MarkStore;
+const markStore = new MarkStore();
+
+export default markStore;
