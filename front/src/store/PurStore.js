@@ -1,5 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import moment from "moment";
 import http from "../http";
+import dateStore from "./dateStore";
 
 class PurStore {
   filterObject = {
@@ -16,6 +18,8 @@ class PurStore {
     this._filterTags = [];
     this._load = "none";
     this._sum = 0;
+    this._filterStartDay = 0;
+    this._filterEndDay = 0;
     //this.filterPurs();
     makeAutoObservable(this, {});
   }
@@ -27,8 +31,13 @@ class PurStore {
   filterPurs() {
     // let cnt = 0;
     // console.log("filter, need, freq", this._filterNeed, this._filterFreq);
+    const startDay = dateStore.startDay;
+    const endDay = dateStore.endDay;
+    console.log("s,e", startDay, endDay);
     const p1 = this._pursAll.filter((p) => {
       // cnt++;
+      console.log("date", p.date);
+      console.log("date", moment(p.date).format("x"));
       const f0 = this._filterTags.length === 0;
       let f1 = true;
       if (!f0) {
@@ -43,7 +52,13 @@ class PurStore {
       }
       const f2 = this._filterNeed === 0 || p.needId === this._filterNeed;
       const f3 = this._filterFreq === 0 || p.freqId === this._filterFreq;
-      return f1 && f2 && f3;
+
+      const d = Number(moment(p.date).format("x"));
+      const f4 = startDay === 0 || d >= startDay;
+      const f5 = endDay === 0 || d <= endDay;
+      console.log("f4, f5", f4, f5);
+      const f6 = f4 && f5;
+      return f1 && f2 && f3 && f6;
     });
     // cnt = 0;
     // for (let i = 0; i < 10; i++) {
@@ -81,6 +96,10 @@ class PurStore {
     return this._purs;
   }
 
+  setStartDay(start, end) {
+    this._filterStartDay = start;
+    this._filterEndDay = end;
+  }
   setNeedReq(en) {
     this._needReq = en;
   }
@@ -92,6 +111,19 @@ class PurStore {
   }
   get sum() {
     return this._sum;
+  }
+
+  filterHint(text) {
+    let r = [];
+    this._pursAll.forEach((p) => {
+      if (p.name.indexOf(text) !== -1) r.push(p.name);
+    });
+    const r1 = Array.from(new Set(r));
+    let r2 = [];
+    for (let i = 0; i < r1.length; i++) {
+      r2.push({ value: r1[i] });
+    }
+    return r2;
   }
 
   async fetchPurchases(freqId, needId, page, limit) {

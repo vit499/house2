@@ -4,6 +4,7 @@ import moment from "moment";
 import "moment/locale/ru";
 // import locale from "antd/es/date-picker/locale/ru_RU";
 import PickerWithType from "./PickerWithType";
+import dateStore from "../../store/dateStore";
 
 const { Option } = Select;
 
@@ -23,6 +24,7 @@ const SelectDatePick = () => {
   }
   useEffect(() => {
     console.log("date, type", date.toISOString(), type);
+    dateStore.setDate(date, type);
   }, [type, date]);
 
   return (

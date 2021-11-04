@@ -38,6 +38,7 @@ const User = {
 };
 const Mark = {
   fetch: async () => await $host.get("api/tag", {}),
+  createTag: async (tag) => await $authHost.post("api/tag", { name: tag }),
 };
 
 const Purchase = {

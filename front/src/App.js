@@ -1,3 +1,4 @@
+import { Layout } from "antd";
 import { observer } from "mobx-react-lite";
 import { useContext, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -6,6 +7,7 @@ import AppRouter from "./components/AppRouter";
 import FooterComp from "./components/FooterComp";
 import Load from "./components/Load";
 import TopBar2 from "./components/TopBar/TopBar2";
+const { Header, Footer, Sider, Content } = Layout;
 
 const App = observer(() => {
   const { markStore, purStore, userStore } = useContext(Context);

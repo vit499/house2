@@ -138,6 +138,21 @@ class MarkStore {
       });
     }
   }
+  async createTag(tag) {
+    this._load = "load";
+    // console.log("[get] fetchFreqs");
+    try {
+      const { data } = await http.Mark.createTag(tag);
+      runInAction(() => {
+        console.log("create tags", data);
+        this._load = "done";
+      });
+    } catch (e) {
+      runInAction(() => {
+        this._load = "err";
+      });
+    }
+  }
 }
 
 export default MarkStore;

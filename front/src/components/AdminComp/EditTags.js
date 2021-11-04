@@ -1,6 +1,6 @@
 import { Button, Col, Input, Row, Form } from "antd";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Context } from "../..";
 import { ADMIN_ROUTE } from "../../utils/const";
@@ -8,13 +8,20 @@ import { ADMIN_ROUTE } from "../../utils/const";
 const EditTags = observer(() => {
   const { markStore } = useContext(Context);
   const [name, setName] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    setIsSubmit(true);
+  };
   const handleCancel = (e) => {
     history.push(ADMIN_ROUTE);
   };
   const handleDel = (id) => {};
+  useEffect(() => {
+    if (!isSubmit) return;
+    markStore.createTag(name);
+  }, [isSubmit]);
   return (
     <div style={{ margin: "2rem 1rem 1rem 1rem" }}>
       <Row>
@@ -34,6 +41,7 @@ const EditTags = observer(() => {
             {markStore.tags &&
               markStore.tags.map((t) => (
                 <div
+                  key={t.id}
                   style={{
                     border: "1px solid #91d5ff",
                     padding: ".25rem",

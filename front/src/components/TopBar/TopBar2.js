@@ -8,6 +8,7 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   PURLIST_ROUTE,
+  TEST_ROUTE,
 } from "../../utils/const";
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -19,11 +20,6 @@ const TopBar2 = () => {
   const logout = (e) => {
     userStore.logout();
     history.push(LOGIN_ROUTE);
-  };
-  const handleAdd = () => {
-    console.log("add");
-    // history.push(ADDPUR_ROUTE);
-    history.push(ADDPUR_ROUTE);
   };
 
   return (
@@ -51,9 +47,20 @@ const TopBar2 = () => {
         </span>
 
         {userStore.isAuth && (
-          <span className="topbar2-item" onClick={handleAdd}>
+          <span
+            className="topbar2-item"
+            onClick={() => history.push(ADDPUR_ROUTE)}
+          >
             <span className="material-icons">add_circle_outline</span>
             Добавить
+          </span>
+        )}
+        {userStore.isAuth && (
+          <span
+            className="topbar2-item"
+            onClick={() => history.push(TEST_ROUTE)}
+          >
+            test
           </span>
         )}
         {userStore.isAuth && (

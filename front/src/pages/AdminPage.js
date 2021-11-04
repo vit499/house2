@@ -35,21 +35,8 @@ const AdminPage = () => {
         <Button
           type="default"
           style={{ width: "100%", margin: ".5rem" }}
-          onClick={() => history.push(EDIT_TAGS_ROUTE)}
-        >
-          Добавить need
-        </Button>
-        <Button
-          type="default"
-          style={{ width: "100%", margin: ".5rem" }}
-          onClick={() => history.push(EDIT_TAGS_ROUTE)}
-        >
-          Добавить freq
-        </Button>
-        <Button
-          type="default"
-          style={{ width: "100%", margin: ".5rem" }}
           onClick={handleDrop}
+          disabled
         >
           Очистить базу
         </Button>

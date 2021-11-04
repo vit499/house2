@@ -8,3 +8,4 @@ export const EDITPUR_ROUTE = "/editpur";
 export const EDIT_TAGS_ROUTE = "/edittags";
 export const EDIT_NEEDS_ROUTE = "/editneeds";
 export const EDIT_FREQS_ROUTE = "/editfreqs";
+export const TEST_ROUTE = "/test";
