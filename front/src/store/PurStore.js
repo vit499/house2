@@ -114,16 +114,18 @@ class PurStore {
     return r2;
   }
 
-  async fetchPurchases(freqId, needId, page, limit) {
+  async fetchPurchases() {
+    if (!this._needReq) return;
     this._load = "load";
     console.log("[get] fetchPurchases");
     try {
-      const { data } = await http.Purchase.fetch(freqId, needId);
+      const { data } = await http.Purchase.fetch();
       runInAction(() => {
         console.log("store purchases", data.count);
         this._pursAll = data.rows;
         this.filterPurs();
         //this._totalCount = data.count;
+        this._needReq = false;
         this._load = "done";
       });
     } catch (err) {

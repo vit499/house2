@@ -46,13 +46,7 @@ const Purchase = {
   update: async (id, purchase) =>
     await $authHost.put(`api/purchase/${id}`, purchase),
   delete: async (id) => await $authHost.delete(`api/purchase/${id}`),
-  fetch: async (freqId, needId) =>
-    await $host.get("api/purchase", {
-      params: {
-        freqId,
-        needId,
-      },
-    }),
+  fetch: async () => await $host.get("api/purchase", {}),
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

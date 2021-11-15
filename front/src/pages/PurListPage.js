@@ -34,15 +34,12 @@ const PurListPage = observer(() => {
   };
 
   useEffect(() => {
-    if (!purStore.needReq) {
-      purStore.setNeedReq(true);
-      return;
-    }
+    // if (!purStore.needReq) {
+    //   purStore.setNeedReq(true);
+    //   return;
+    // }
     // console.log("shop use effect2");
-    purStore.fetchPurchases(
-      purStore.selectedFreqId !== 0 ? purStore.selectedFreqId : null,
-      purStore.selectedNeedId !== 0 ? purStore.selectedNeedId : null
-    );
+    purStore.fetchPurchases();
     // purStore.getAll();
   }, []);
 

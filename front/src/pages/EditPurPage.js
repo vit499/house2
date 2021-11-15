@@ -24,14 +24,16 @@ const EditPurPage = observer(() => {
     // };
     // console.log("submit edit pur", JSON.stringify(p, null, 2));
     if (onePurStore.name === "" || onePurStore.price === "") return;
+    purStore.setNeedReq(true);
     setIsSubmitSave(true);
   };
   const handleCancel = (e) => {
     // console.log("add cancel");
-    purStore.setNeedReq(false);
+    // purStore.setNeedReq(false);
     history.push(PURLIST_ROUTE);
   };
   const handleDelete = () => {
+    purStore.setNeedReq(true);
     setIsSubmitDel(true);
   };
 

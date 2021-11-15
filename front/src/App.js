@@ -6,6 +6,7 @@ import Load from "./components/Load";
 import TopBar from "./components/TopBar/TopBar";
 import markStore from "./store/MarkStore";
 import userStore from "./store/UserStore";
+import purStore from "./store/PurStore";
 import React from "react";
 
 const App = observer(() => {
@@ -13,6 +14,7 @@ const App = observer(() => {
     console.log("app init");
     markStore.Init();
     markStore.fetchMark();
+    purStore.fetchPurchases();
   }, []);
 
   useEffect(() => {
