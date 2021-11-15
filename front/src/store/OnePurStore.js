@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import http from "../http";
+import markStore from "./MarkStore";
 
 class OnePurStore {
   constructor() {
@@ -15,16 +16,7 @@ class OnePurStore {
     makeAutoObservable(this, {});
   }
 
-  Init(
-    allTags,
-    id = 0,
-    name = "",
-    price = 0,
-    needId = 1,
-    freqId = 1,
-    tags = [],
-    date
-  ) {
+  Init(id = 0, name = "", price = 0, needId = 1, freqId = 1, tags = [], date) {
     this._load = "none";
     this._id = id;
     this._name = name;
@@ -36,15 +28,12 @@ class OnePurStore {
 
     // console.log("init one pur", JSON.stringify(p, null, 2));
     // this._pur = p;
-    const t1 = JSON.parse(JSON.stringify(allTags));
+    const t1 = JSON.parse(JSON.stringify(markStore.tags));
     t1.forEach((t) => {
       if (this._tags.includes(t.name)) t.checked = true;
       else t.checked = false;
     });
     this._allTags = t1;
-  }
-  setAllTags(allTags) {
-    this._allTags = allTags;
   }
   setName(name) {
     // console.log("name", name);

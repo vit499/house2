@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import markStore from "../../store/MarkStore";
 import onePurStore from "../../store/OnePurStore";
 
 const NeedsAddComp = observer(() => {
-
   const handle = (id) => {
     onePurStore.setNeedId(id);
   };
 
-  useEffect(() => {
-    console.log(
-      "effect pur, needId, freqId",
-      onePurStore.needId,
-      onePurStore.freqId
-    );
-  }, []);
+  // useEffect(() => {
+  //   console.log(
+  //     "effect pur, needId, freqId",
+  //     onePurStore.needId,
+  //     onePurStore.freqId
+  //   );
+  // }, []);
   return (
     <div
       style={{

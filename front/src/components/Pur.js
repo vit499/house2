@@ -1,6 +1,6 @@
 import { Button, Col, Input, Row, Form, DatePicker } from "antd";
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import React from "react";
 import "moment/locale/ru";
 import locale from "antd/es/date-picker/locale/ru_RU";
 import FreqsAddComp from "./markcomp/FreqsAddComp";
@@ -12,9 +12,6 @@ import purStore from "../store/PurStore";
 
 const Pur = observer(
   ({ showDel, handleSubmit, handleCancel, handleDelete }) => {
-    // const [name, setName] = useState("");
-    // const [price, setPrice] = useState(0);
-
     const hChangeName = (e) => {
       const n = e.target.value;
       onePurStore.setName(n);
@@ -35,12 +32,6 @@ const Pur = observer(
       onePurStore.setDate(moment(date).toISOString());
     };
     const dateFormat = "YYYY/MM/DD";
-
-    useEffect(() => {
-      // setName(onePurStore.name);
-      // setPrice(onePurStore.price);
-    }, []);
-    // console.log("pur", JSON.stringify(onePurStore.tags, null, 2));
 
     return (
       <div style={{ margin: "2rem 1rem 1rem 1rem" }}>

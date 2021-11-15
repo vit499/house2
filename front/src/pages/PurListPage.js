@@ -19,26 +19,17 @@ const PurListPage = observer(() => {
   const history = useHistory();
 
   const handleTag = (e) => {
-    markStore.setCheckTag(e.target.value, purStore);
+    markStore.setCheckTag(e.target.value);
   };
   const handleNeed = (e) => {
-    markStore.setCheckNeed(e.target.value, purStore);
+    markStore.setCheckNeed(e.target.value);
   };
   const handleFreq = (e) => {
-    markStore.setCheckFreq(e.target.value, purStore);
+    markStore.setCheckFreq(e.target.value);
   };
   const handleClick = (p) => {
     // console.log("choise p", JSON.stringify(p, null, 2));
-    onePurStore.Init(
-      markStore.tags,
-      p.id,
-      p.name,
-      p.price,
-      p.needId,
-      p.freqId,
-      p.tags,
-      p.date
-    );
+    onePurStore.Init(p.id, p.name, p.price, p.needId, p.freqId, p.tags, p.date);
     history.push(`${EDITPUR_ROUTE}/${p.id}`);
   };
 

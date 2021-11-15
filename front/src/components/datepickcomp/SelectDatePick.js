@@ -9,8 +9,8 @@ import dateStore from "../../store/dateStore";
 const { Option } = Select;
 
 const SelectDatePick = () => {
-  const [type, setType] = useState("week");
-  const [date, setDate] = useState(new Date());
+  const [type, setType] = useState(dateStore.type); // useState("week");
+  const [date, setDate] = useState(dateStore.date); //  useState(new Date());
 
   function changeType(value) {
     // console.log("date, type", date.toISOString(), value);

@@ -25,28 +25,6 @@ const TagsComp = observer(({ handle }) => {
       ))}
     </Row>
   );
-  // return (
-  //   <div
-  //     style={{
-  //       display: "flex",
-  //       flexDirection: "column",
-  //       marginRight: "0.5rem",
-  //     }}
-  //   >
-  //     {markStore.tags.map((t) => (
-  //       <div key={t.id}>
-  //         <Checkbox
-  //           value={t.id}
-  //           style={{ lineHeight: "32px" }}
-  //           checked={t.checked}
-  //           onChange={handle}
-  //         >
-  //           {t.name}
-  //         </Checkbox>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
 });
 
 export default TagsComp;

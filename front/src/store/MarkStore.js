@@ -1,9 +1,10 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import http from "../http";
+import purStore from "./PurStore";
 // import useLocalStorage from '../hooks/useLocalStorage'
 
 class MarkStore {
-  constructor(purStore) {
+  constructor() {
     this._load = "none";
     this._tags = []; // Tags();
     this._freqs = []; // getFreqs();
@@ -13,7 +14,6 @@ class MarkStore {
       needs: this._needs,
       tags: this._tags,
     };
-    // this.Init(purStore);
     makeAutoObservable(this, {});
   }
   get tags() {
@@ -37,9 +37,9 @@ class MarkStore {
     // }
     // return false;
   }
-  Init(purStore) {
+  Init() {
     //if (this.InitLocal()) {
-    this.updatePurStore(purStore);
+    this.updatePurStore();
     //}
   }
   getTags(ind) {
@@ -50,7 +50,7 @@ class MarkStore {
     return tags;
   }
 
-  updatePurStore(purStore) {
+  updatePurStore() {
     let idNeed, idFreq;
     let tags = [];
     this._tags.forEach((t) => {
@@ -68,7 +68,7 @@ class MarkStore {
     // console.log("need, freq, tags", idNeed, idFreq, tags);
     purStore.setFilters(idNeed, idFreq, tags);
   }
-  setCheckTag(id, purStore) {
+  setCheckTag(id) {
     const tt = this._tags.map((t) => {
       if (t.id === id) t.checked = !t.checked;
       // console.log("t", JSON.stringify(t, null, 2));
@@ -82,10 +82,10 @@ class MarkStore {
     // this._tags.forEach((t) => {
     //   if (t.checked) f.push(t.name);
     // });
-    this.updatePurStore(purStore);
+    this.updatePurStore();
   }
 
-  setCheckNeed(id1, purStore) {
+  setCheckNeed(id1) {
     let id = Number(id1);
     // let id0 = id;
     // console.log("t", id);
@@ -100,9 +100,9 @@ class MarkStore {
     this._filter = { ...this._filter, needs: this._needs };
     localStorage.setItem("filter", JSON.stringify(this._filter));
 
-    this.updatePurStore(purStore);
+    this.updatePurStore();
   }
-  setCheckFreq(id1, purStore) {
+  setCheckFreq(id1) {
     let id = Number(id1);
     // let id0 = id;
     // console.log("t", id);
@@ -116,7 +116,7 @@ class MarkStore {
     });
     this._filter = { ...this._filter, freqs: this._freqs };
     localStorage.setItem("filter", JSON.stringify(this._filter));
-    this.updatePurStore(purStore);
+    this.updatePurStore();
   }
 
   async fetchMark() {
@@ -129,7 +129,6 @@ class MarkStore {
         this._tags = data.tags;
         this._needs = data.needs;
         this._freqs = data.freqs;
-        // this.InitLocal();
         this._load = "done";
       });
     } catch (e) {

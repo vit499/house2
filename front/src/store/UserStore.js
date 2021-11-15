@@ -98,7 +98,7 @@ class UserStore {
         const u = jwtDecode(data.token);
         localStorage.setItem("token", data.token);
         runInAction(() => {
-          console.log("login res", data);
+          // console.log("login res", data);
           this._user = u;
           this._isAuth = true;
           this._load = "done";

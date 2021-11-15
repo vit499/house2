@@ -1,25 +1,19 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { Menu } from "antd";
-import {
-  HomeOutlined,
-  LoginOutlined,
-  LogoutOutlined,
-  PlusCircleOutlined,
-  SettingOutlined,
-  UnorderedListOutlined,
-} from "@ant-design/icons";
-import "./style.css";
+import { useHistory } from "react-router";
+import { Input } from "antd";
+import { observer } from "mobx-react-lite";
 import {
   ADDPUR_ROUTE,
   ADMIN_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
   PURLIST_ROUTE,
+  TEST_ROUTE,
 } from "../../utils/const";
+import "./style.css";
 import userStore from "../../store/UserStore";
 
-const TopBar = () => {
+const TopBar2 = observer(() => {
   const history = useHistory();
 
   const logout = (e) => {
@@ -28,67 +22,75 @@ const TopBar = () => {
   };
 
   return (
-    <>
-      <div style={{ backgroundColor: "#87e8de" }}>
-        <Menu
-          mode="horizontal"
-          className="container"
-          style={{ backgroundColor: "#87e8de" }}
+    <div style={{ backgroundColor: "#20B2AA", minHeight: "4vh" }}>
+      <div
+        className="container"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
+        <span className="topbar2-item" onClick={() => history.push(HOME_ROUTE)}>
+          <span className="material-icons">house_siding</span>
+          Главная
+        </span>
+        <Input
+          placeholder="поиск"
+          //onSearch={onSearch}
+          bordered={false}
+          style={{ width: 200, color: "#f0f0f0" }}
+        />
+        <span
+          className="topbar2-item ms-auto"
+          onClick={() => history.push(PURLIST_ROUTE)}
         >
-          <Menu.Item
-            key="home"
-            icon={<HomeOutlined />}
-            onClick={() => history.push(HOME_ROUTE)}
-          >
-            Главная
-          </Menu.Item>
+          <span className="material-icons">list</span>
+          Список
+        </span>
 
-          <Menu.Item
-            key="list"
-            style={{ marginLeft: "auto" }}
-            icon={<UnorderedListOutlined />}
-            onClick={() => history.push(PURLIST_ROUTE)}
+        {userStore.isAuth && (
+          <span
+            className="topbar2-item"
+            onClick={() => history.push(ADDPUR_ROUTE)}
           >
-            Список
-          </Menu.Item>
-          {userStore.isAuth && (
-            <Menu.Item
-              key="add"
-              icon={<PlusCircleOutlined />}
-              onClick={() => history.push(ADDPUR_ROUTE)}
-            >
-              Добавить
-            </Menu.Item>
-          )}
-          {userStore.isAuth && (
-            <Menu.Item
-              key="admin"
-              icon={<SettingOutlined />}
-              onClick={() => history.push(ADMIN_ROUTE)}
-            >
-              Админ
-            </Menu.Item>
-          )}
-          {!userStore.isAuth && (
-            <Menu.Item
-              key="login"
-              icon={<LoginOutlined />}
-              onClick={() => history.push(LOGIN_ROUTE)}
-            >
-              Войти
-            </Menu.Item>
-          )}
-          {userStore.isAuth && (
-            <Menu.Item
-              key="logout"
-              icon={<LogoutOutlined />}
-              onClick={logout}
-            ></Menu.Item>
-          )}
-        </Menu>
+            <span className="material-icons">add_circle_outline</span>
+            Добавить
+          </span>
+        )}
+        {userStore.isAuth && (
+          <span
+            className="topbar2-item"
+            onClick={() => history.push(TEST_ROUTE)}
+          >
+            test
+          </span>
+        )}
+        {userStore.isAuth && (
+          <span
+            className="topbar2-item"
+            onClick={() => history.push(ADMIN_ROUTE)}
+          >
+            <span className="material-icons"></span>
+            Админ
+          </span>
+        )}
+        {userStore.isAuth && (
+          <span className="topbar2-item">{userStore.user.username}</span>
+        )}
+        {!userStore.isAuth && (
+          <span
+            className="topbar2-item"
+            onClick={() => history.push(LOGIN_ROUTE)}
+          >
+            <span className="material-icons">login</span>
+            Войти
+          </span>
+        )}
+        {userStore.isAuth && (
+          <span className="topbar2-item" onClick={logout}>
+            <span className="material-icons">logout</span>
+          </span>
+        )}
       </div>
-    </>
+    </div>
   );
-};
+});
 
-export default TopBar;
+export default TopBar2;

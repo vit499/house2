@@ -3,16 +3,16 @@ import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import Load from "./components/Load";
-import TopBar2 from "./components/TopBar/TopBar2";
+import TopBar from "./components/TopBar/TopBar";
 import markStore from "./store/MarkStore";
-import purStore from "./store/PurStore";
 import userStore from "./store/UserStore";
 import React from "react";
 
 const App = observer(() => {
   useEffect(() => {
     console.log("app init");
-    markStore.Init(purStore);
+    markStore.Init();
+    markStore.fetchMark();
   }, []);
 
   useEffect(() => {
@@ -20,10 +20,10 @@ const App = observer(() => {
     userStore.auth();
   }, []);
 
-  useEffect(() => {
-    // console.log("useEffect app markStore");
-    markStore.fetchMark();
-  }, []);
+  // useEffect(() => {
+  //   // console.log("useEffect app markStore");
+  //   markStore.fetchMark();
+  // }, []);
 
   if (userStore.loadApp === "load" || markStore.load === "load") {
     return <Load />;
@@ -31,7 +31,7 @@ const App = observer(() => {
   // console.log("app isAuth", userStore.isAuth);
   return (
     <BrowserRouter>
-      <TopBar2 />
+      <TopBar />
       <AppRouter />
     </BrowserRouter>
   );

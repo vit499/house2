@@ -2,8 +2,8 @@ import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Pur from "../components/Pur";
+import { message } from "antd";
 import { PURLIST_ROUTE } from "../utils/const";
-import markStore from "../store/MarkStore";
 import purStore from "../store/PurStore";
 import onePurStore from "../store/OnePurStore";
 
@@ -25,13 +25,23 @@ const AddPurPage = observer(() => {
   const handleDelete = () => {};
 
   useEffect(() => {
-    onePurStore.Init(markStore.tags);
+    onePurStore.Init();
   }, []);
 
   useEffect(() => {
     if (!isSubmitSave) return;
     // console.log("add pur");
-    onePurStore.createPur().then(() => history.push(PURLIST_ROUTE));
+    setIsSubmitSave(false);
+    onePurStore
+      .createPur()
+      .then(() => {
+        message.success("Добавлено");
+        onePurStore.Init();
+        // history.push(PURLIST_ROUTE);
+      })
+      .catch((err) => {
+        message.success("ошибка");
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSave]);
 
