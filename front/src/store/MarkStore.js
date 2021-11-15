@@ -141,9 +141,9 @@ class MarkStore {
     this._load = "load";
     // console.log("[get] fetchFreqs");
     try {
-      const { data } = await http.Mark.createTag(tag);
+      await http.Mark.createTag(tag);
       runInAction(() => {
-        console.log("create tags", data);
+        // console.log("create tags", data);
         this._load = "done";
       });
     } catch (e) {

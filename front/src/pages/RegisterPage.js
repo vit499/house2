@@ -13,7 +13,7 @@ const RegisterPage = observer(() => {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const onFinish = (values) => {
-    console.log("submit:", values);
+    // console.log("submit:", values);
     // const { email, password, username } = values;
     // userStore.register(email, password, username);
     setValues(values);
@@ -29,7 +29,7 @@ const RegisterPage = observer(() => {
     setIsSubmit(false);
   }, [isSubmit, values]);
   useEffect(() => {
-    console.log("reg clrLoad");
+    // console.log("reg clrLoad");
     userStore.clrLoad();
   }, []);
 

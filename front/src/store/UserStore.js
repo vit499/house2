@@ -71,12 +71,12 @@ class UserStore {
   async register(email, password, username) {
     this._load = "load";
     this._errors = null;
-    console.log("register start");
+    // console.log("register start");
     try {
       const { data } = await http.User.register(email, password, username);
       runInAction(() => {
         if (data) {
-          console.log("register res", data);
+          // console.log("register res", data);
         }
         this._load = "done";
       });
@@ -91,7 +91,7 @@ class UserStore {
   async login(email, password) {
     this._load = "load";
     this._errors = null;
-    console.log("login start");
+    // console.log("login start");
     try {
       const { data } = await http.User.login(email, password);
       if (data) {

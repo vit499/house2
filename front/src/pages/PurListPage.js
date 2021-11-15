@@ -29,7 +29,7 @@ const PurListPage = observer(() => {
   };
   const handleClick = (p) => {
     // console.log("choise p", JSON.stringify(p, null, 2));
-    onePurStore.Init(p.id, p.name, p.price, p.needId, p.freqId, p.tags, p.date);
+    onePurStore.Init(p); // (p.id, p.name, p.price, p.needId, p.freqId, p.tags, p.date);
     history.push(`${EDITPUR_ROUTE}/${p.id}`);
   };
 

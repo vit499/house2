@@ -1,32 +1,19 @@
-import { Button, Col, Input, Row, Form, DatePicker } from "antd";
+import { Button, Col, Row, Form, DatePicker } from "antd";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import "moment/locale/ru";
 import locale from "antd/es/date-picker/locale/ru_RU";
-import FreqsAddComp from "./markcomp/FreqsAddComp";
-import NeedsAddComp from "./markcomp/NeedsAddComp";
-import TagsAddComp from "./markcomp/TagsAddComp";
+import FreqsAddComp from "../markcomp/FreqsAddComp";
+import NeedsAddComp from "../markcomp/NeedsAddComp";
+import TagsAddComp from "../markcomp/TagsAddComp";
 import moment from "moment";
-import onePurStore from "../store/OnePurStore";
-import purStore from "../store/PurStore";
+import onePurStore from "../../store/OnePurStore";
+import purStore from "../../store/PurStore";
+import PurName from "./PurName";
+import PurPrice from "./PurPrice";
 
-const Pur = observer(
+const PurchaseComp = observer(
   ({ showDel, handleSubmit, handleCancel, handleDelete }) => {
-    const hChangeName = (e) => {
-      const n = e.target.value;
-      onePurStore.setName(n);
-    };
-    const hChangePrice = (e) => {
-      const n = e.target.value;
-      const x = onePurStore.price.toString();
-      if (n.length > x.length) {
-        const a = n.substring(x.length);
-        if (isNaN(a)) return;
-      }
-      let p = Number(n);
-      if (isNaN(p)) p = 0;
-      onePurStore.setPrice(p);
-    };
     const hChangeDate = (date, dateString) => {
       if (!date) return;
       onePurStore.setDate(moment(date).toISOString());
@@ -49,22 +36,8 @@ const Pur = observer(
               // autoComplete="off"
               style={{ margin: "1rem" }}
             >
-              <Input
-                placeholder="Товар"
-                value={onePurStore.name}
-                onChange={hChangeName}
-                style={{ marginBottom: "1rem" }}
-              />
-
-              <Input
-                placeholder="Цена"
-                value={onePurStore.price}
-                onChange={hChangePrice}
-                style={{
-                  width: "100%",
-                  marginBottom: "1rem",
-                }}
-              />
+              <PurName />
+              <PurPrice />
 
               <TagsAddComp />
               <Row style={{ marginTop: ".5rem" }}>
@@ -125,4 +98,4 @@ const Pur = observer(
   }
 );
 
-export default Pur;
+export default PurchaseComp;

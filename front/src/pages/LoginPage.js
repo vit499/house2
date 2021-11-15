@@ -15,7 +15,7 @@ const LoginPage = observer(() => {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     // setValues(values);
     setIsSubmit(true);
     // const { username, email, password } = values;
@@ -29,7 +29,7 @@ const LoginPage = observer(() => {
     setIsSubmit(false);
   }, [isSubmit, email, password]);
   useEffect(() => {
-    console.log("login clrLoad");
+    // console.log("login clrLoad");
     userStore.clrLoad();
   }, []);
 

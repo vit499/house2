@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router";
-import Pur from "../components/Pur";
 import { PURLIST_ROUTE } from "../utils/const";
 import purStore from "../store/PurStore";
 import onePurStore from "../store/OnePurStore";
+import PurchaseComp from "../components/purchase/PurchaseComp";
 
 const EditPurPage = observer(() => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const EditPurPage = observer(() => {
 
   const handleSubmit = () => {
     // e.preventDefault();
-    console.log("save pur");
+    // console.log("save pur");
     // const p = {
     //   id: onePurStore.id,
     //   name: onePurStore.name,
@@ -54,7 +54,7 @@ const EditPurPage = observer(() => {
 
   return (
     <div>
-      <Pur
+      <PurchaseComp
         showDel={true}
         handleSubmit={handleSubmit}
         handleCancel={handleCancel}

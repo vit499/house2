@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import http from "../http";
 import markStore from "./MarkStore";
+import purStore from "./PurStore";
 
 class OnePurStore {
   constructor() {
@@ -16,15 +17,17 @@ class OnePurStore {
     makeAutoObservable(this, {});
   }
 
-  Init(id = 0, name = "", price = 0, needId = 1, freqId = 1, tags = [], date) {
+  // Init(pur = {id = 0, name = "", price = 0, needId = 1, freqId = 1, tags = [], date}) {
+  Init(pur) {
     this._load = "none";
-    this._id = id;
-    this._name = name;
-    this._price = price;
-    this._needId = needId;
-    this._freqId = freqId;
-    this._tags = tags && tags.length ? tags.split(" ") : [];
-    this._date = date && date !== "" ? date : new Date().toISOString();
+    this._id = pur.id ? pur.id : 0;
+    this._name = pur.name ? pur.name : "";
+    this._price = pur.price ? pur.price : 0;
+    this._needId = pur.needId ? pur.needId : 1;
+    this._freqId = pur.freqId ? pur.freqId : 1;
+    this._tags = pur.tags && pur.tags.length ? pur.tags.split(" ") : [];
+    this._date =
+      pur.date && pur.date !== "" ? pur.date : new Date().toISOString();
 
     // console.log("init one pur", JSON.stringify(p, null, 2));
     // this._pur = p;
@@ -34,6 +37,10 @@ class OnePurStore {
       else t.checked = false;
     });
     this._allTags = t1;
+  }
+  FindByName(name) {
+    const pur = purStore.findByName(name);
+    this.Init(pur);
   }
   setName(name) {
     // console.log("name", name);
@@ -107,11 +114,11 @@ class OnePurStore {
   async createPur() {
     this._load = "load";
     const purchase = this.getOnePur();
-    console.log("create purchase", purchase);
+    // console.log("create purchase", purchase);
     try {
-      const purchases = await http.Purchase.create(purchase);
+      await http.Purchase.create(purchase);
       runInAction(() => {
-        console.log("get purs", purchases.data);
+        // console.log("get purs", purchases.data);
         this._load = "done";
       });
     } catch (err) {
@@ -126,9 +133,9 @@ class OnePurStore {
     this._load = "load";
     const purchase = this.getOnePur();
     try {
-      const purchases = await http.Purchase.update(this._id, purchase);
+      await http.Purchase.update(this._id, purchase);
       runInAction(() => {
-        console.log("get pur", purchases.data);
+        // console.log("get pur", purchases.data);
         this._load = "done";
       });
     } catch (err) {
@@ -140,11 +147,11 @@ class OnePurStore {
   async deletePur() {
     if (!this._id) return;
     this._load = "load";
-    console.log("del purchase", this._id);
+    // console.log("del purchase", this._id);
     try {
-      const purchases = await http.Purchase.delete(this._id);
+      await http.Purchase.delete(this._id);
       runInAction(() => {
-        console.log("get purs", purchases.data);
+        // console.log("get purs", purchases.data);
         this._load = "done";
       });
     } catch (err) {

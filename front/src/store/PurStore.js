@@ -113,19 +113,24 @@ class PurStore {
     }
     return r2;
   }
+  findByName(name) {
+    const pur = this._pursAll.find((p) => p.name === name);
+    return pur;
+  }
 
   async fetchPurchases() {
     if (!this._needReq) return;
+    this._needReq = false;
     this._load = "load";
-    console.log("[get] fetchPurchases");
+    // console.log("[get] fetchPurchases");
     try {
       const { data } = await http.Purchase.fetch();
       runInAction(() => {
-        console.log("store purchases", data.count);
+        console.log("count purchases", data.count);
         this._pursAll = data.rows;
         this.filterPurs();
         //this._totalCount = data.count;
-        this._needReq = false;
+
         this._load = "done";
       });
     } catch (err) {

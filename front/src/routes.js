@@ -9,7 +9,6 @@ import {
   EDIT_TAGS_ROUTE,
   EDIT_NEEDS_ROUTE,
   EDIT_FREQS_ROUTE,
-  TEST_ROUTE,
 } from "./utils/const";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -19,7 +18,6 @@ import PurListPage from "./pages/PurListPage";
 import AddPurPage from "./pages/AddPurPage";
 import EditPurPage from "./pages/EditPurPage";
 import EditTags from "./components/AdminComp/EditTags";
-import Test from "./components/Test";
 
 export const authRoutes = [
   {
@@ -45,10 +43,6 @@ export const authRoutes = [
   {
     path: EDIT_FREQS_ROUTE,
     Component: EditTags,
-  },
-  {
-    path: TEST_ROUTE,
-    Component: Test,
   },
 ];
 

@@ -8,7 +8,6 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   PURLIST_ROUTE,
-  TEST_ROUTE,
 } from "../../utils/const";
 import "./style.css";
 import userStore from "../../store/UserStore";
@@ -52,14 +51,6 @@ const TopBar2 = observer(() => {
           >
             <span className="material-icons">add_circle_outline</span>
             Добавить
-          </span>
-        )}
-        {userStore.isAuth && (
-          <span
-            className="topbar2-item"
-            onClick={() => history.push(TEST_ROUTE)}
-          >
-            test
           </span>
         )}
         {userStore.isAuth && (

@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import Pur from "../components/Pur";
+import PurchaseComp from "../components/purchase/PurchaseComp";
 import { message } from "antd";
 import { PURLIST_ROUTE } from "../utils/const";
 import purStore from "../store/PurStore";
@@ -26,7 +26,7 @@ const AddPurPage = observer(() => {
   const handleDelete = () => {};
 
   useEffect(() => {
-    onePurStore.Init();
+    onePurStore.Init({});
   }, []);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const AddPurPage = observer(() => {
       .createPur()
       .then(() => {
         message.success("Добавлено");
-        onePurStore.Init();
+        onePurStore.Init({});
         // history.push(PURLIST_ROUTE);
       })
       .catch((err) => {
@@ -51,7 +51,7 @@ const AddPurPage = observer(() => {
   // }
   return (
     <div>
-      <Pur
+      <PurchaseComp
         showDel={false}
         handleSubmit={handleSubmit}
         handleCancel={handleCancel}
