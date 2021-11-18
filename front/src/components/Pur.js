@@ -1,8 +1,8 @@
 import { Button, Col, Input, Row, Form, DatePicker } from "antd";
 import { observer } from "mobx-react-lite";
 import React from "react";
-import "moment/locale/ru";
-import locale from "antd/es/date-picker/locale/ru_RU";
+// import "moment/locale/ru";
+// import locale from "antd/es/date-picker/locale/ru_RU";
 import FreqsAddComp from "./markcomp/FreqsAddComp";
 import NeedsAddComp from "./markcomp/NeedsAddComp";
 import TagsAddComp from "./markcomp/TagsAddComp";
@@ -30,6 +30,7 @@ const Pur = observer(
     const hChangeDate = (date, dateString) => {
       if (!date) return;
       onePurStore.setDate(moment(date).toISOString());
+      // onePurStore.setDate(date);
     };
     const dateFormat = "YYYY/MM/DD";
 
@@ -81,7 +82,7 @@ const Pur = observer(
               </Row>
               <Row style={{ marginTop: ".5rem" }}>
                 <DatePicker
-                  locale={locale}
+                  // locale={locale}
                   value={moment(onePurStore.date, dateFormat)}
                   format={dateFormat}
                   onChange={hChangeDate}

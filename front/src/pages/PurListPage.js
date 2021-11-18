@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Popover, Row } from "antd";
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 // import "./style.css";
@@ -32,7 +32,13 @@ const PurListPage = observer(() => {
     onePurStore.Init(p); // (p.id, p.name, p.price, p.needId, p.freqId, p.tags, p.date);
     history.push(`${EDITPUR_ROUTE}/${p.id}`);
   };
-
+  const contentPopover = (p) => {
+    return (
+      <>{`${markStore.needs[p.needId - 1].name}, ${
+        markStore.freqs[p.freqId - 1].name
+      }, ${p.tags}`}</>
+    );
+  };
   useEffect(() => {
     // if (!purStore.needReq) {
     //   purStore.setNeedReq(true);
@@ -71,20 +77,22 @@ const PurListPage = observer(() => {
           lg={{ span: 6, offset: 6 }}
         >
           {purStore.Purs.map((p, ind) => (
-            <div
-              key={p.id}
-              className="m-1 pe-5"
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              onClick={() => handleClick(p)}
-            >
-              <div>{`${moment(p.date).format("MM/DD")}  ${p.name} `}</div>
-              <div>{`${p.price}    `}</div>
-            </div>
+            <Popover key={p.id} content={contentPopover(p)} trigger="hover">
+              <div
+                key={p.id}
+                className="m-1 pe-5"
+                style={{
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+                onClick={() => handleClick(p)}
+              >
+                <div>{`${moment(p.date).format("MM/DD")}  ${p.name} `}</div>
+                <div>{`${p.price}    `}</div>
+              </div>
+            </Popover>
           ))}
         </Col>
         <Col

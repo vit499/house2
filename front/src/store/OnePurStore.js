@@ -39,7 +39,8 @@ class OnePurStore {
     this._allTags = t1;
   }
   FindByName(name) {
-    const pur = purStore.findByName(name);
+    let pur = purStore.findByName(name);
+    pur = { ...pur, date: "" };
     this.Init(pur);
   }
   setName(name) {
@@ -70,7 +71,8 @@ class OnePurStore {
   }
   setDate(date) {
     // if (!date) return;
-    this._date = date && date !== "" ? date : new Date().toISOString(); // moment(date).toISOString();
+    // console.log("date", date, date.toISOString, date.toString());
+    this._date = date && date !== "" ? date : new Date().toISOString();
   }
 
   get name() {
